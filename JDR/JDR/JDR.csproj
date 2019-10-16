@@ -64,7 +64,7 @@
     <Compile Include="BDD\Connection.cs" />
     <Compile Include="BDD\GestionBDD.cs" />
     <Compile Include="BDD\InitClasses.cs" />
-    <Compile Include="Classe.cs" />
+    <Compile Include="Model\Classe.cs" />
     <Compile Include="CreationPerso\CreationPerso.cs" />
     <Compile Include="CreationPerso\SelectClass.cs">
       <SubType>Form</SubType>
@@ -84,10 +84,10 @@
     <Compile Include="CreationPerso\SelectRace.Designer.cs">
       <DependentUpon>SelectRace.cs</DependentUpon>
     </Compile>
-    <Compile Include="Histoire.cs" />
+    <Compile Include="Model\Histoire.cs" />
     <Compile Include="Outil\DicoFloat.cs" />
-    <Compile Include="Perso.cs" />
-    <Compile Include="Race.cs" />
+    <Compile Include="Model\Perso.cs" />
+    <Compile Include="Model\Race.cs" />
     <Compile Include="RemplireBDD\AddRace.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,11 +102,11 @@
     </Compile>
     <Compile Include="ResultatAttaque.cs" />
     <Compile Include="Outil\Roll.cs" />
-    <Compile Include="SousRace.cs" />
-    <Compile Include="Stat.cs" />
-    <Compile Include="StatCalculé.cs" />
-    <Compile Include="StatPrincipale.cs" />
-    <Compile Include="StatSecondaire.cs" />
+    <Compile Include="Model\SousRace.cs" />
+    <Compile Include="Stat\Stat.cs" />
+    <Compile Include="Stat\StatCalculé.cs" />
+    <Compile Include="Stat\StatPrincipale.cs" />
+    <Compile Include="Stat\StatSecondaire.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -161,5 +161,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

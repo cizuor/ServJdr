@@ -17,12 +17,12 @@ namespace JDR
         public Race race;
         public SousRace sousRace;
         public Classe classe;
-        public DicoFloat bonusClasse;
+        public int lvl;
         public Histoire histoire;
-        public DicoFloat listStat;
+        public DicoFloat autreStat;// dées et bonnus lier au lvl
         public DicoFloat buffDebuff;
-        public List<Classe> evolution;
         private GestionBDD bdd;
+        private Dictionary<int, Stat> listStat;// liste de toute les stat du jeux 
 
         public Perso()
         {
@@ -65,15 +65,7 @@ namespace JDR
 
         public void LvlUp(Classe prochaineClasse)
         {
-            foreach(int idStat in prochaineClasse.stat.Keys)
-            {
-                if (!bonusClasse.ContainsKey(idStat))
-                {
-                    bonusClasse.Add(idStat, 0);
-                }
-                bonusClasse[idStat] = bonusClasse[idStat] + prochaineClasse.stat[idStat];
-            }
-            this.classe = prochaineClasse;
+
         }
 
 
@@ -90,8 +82,9 @@ namespace JDR
         public Boolean JetStat(int idStat , int bonus , out float objectif , out int resultat)
         {
             Boolean reussite;
-            Roll.Jet100(listStat[idStat] + bonus ,out resultat, out reussite);
-            objectif = listStat[idStat];
+            objectif = listStat[idStat].GetValue(this) + bonus;
+            Roll.Jet100(objectif ,out resultat, out reussite);
+            
             return reussite;
         }
 

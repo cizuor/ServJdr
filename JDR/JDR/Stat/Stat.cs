@@ -96,7 +96,16 @@ namespace JDR
             EnduPet = 70,
             CritPet = 71,
             PAPet = 72,
-            MouvementPet = 73
+            MouvementPet = 73,
+            DegatSubit = 74,
+            DegatInfliger = 75,
+            DegatSubitMagique = 76,
+            DegatInfligerMagique = 77,
+            DegatSubitPhysique = 78,
+            DegatInfligerPhysique = 79,
+            NBPetS = 80,
+            NBPetM = 81,
+            NBPetL = 82,
 
         }
     }
