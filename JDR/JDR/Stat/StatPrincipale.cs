@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JDR.Outil;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,15 @@ namespace JDR
     {
         public override int GetValue(Perso perso)
         {
-            return 0;//(int)Math.Round((perso.race.stat[this.id] + perso.dée[this.id] + perso.sousRace.stat[this.id]) * perso.bonusClasse[this.id] + perso.histoire.stat[this.id])       ; 
-            
+
+            float total = (float)Math.Round((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + perso.autreStat[this.id]) * perso.classe.stat[this.id] + perso.histoire.stat[this.id]);
+            return GestionValeur.GetValeur(total);
+        }
+
+        public override int GetValueForTest(Perso perso)
+        {
+            float total = (float)Math.Round((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + perso.autreStat[this.id]) * perso.classe.stat[this.id] + perso.histoire.stat[this.id]);
+            return GestionValeur.GetValeurOn100(total);
         }
     }
 }

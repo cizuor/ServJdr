@@ -11,8 +11,8 @@ namespace JDR
         public Boolean touche;
         public Boolean critique;
         public int degats;
-        public float chanceToucher;
-        public float chanceCrit;
+        public int chanceToucher;
+        public int chanceCrit;
         public int resultat;
         public int resultatCrit;
         public Boolean reussite;
@@ -23,13 +23,13 @@ namespace JDR
             switch (type)
             {
                 case "cac":
-                    chanceToucher = attaquant.listStat[(int)Stat.stats.CC] - defenseur.listStat[(int)Stat.stats.ResistanceCaC];
-                    chanceCrit = attaquant.listStat[(int)Stat.stats.ChanceCrit];
+                    chanceToucher = attaquant.listStat[(int)Stat.stats.CC].GetValue(attaquant) - defenseur.listStat[(int)Stat.stats.ResistanceCaC].GetValue(defenseur);
+                    chanceCrit = attaquant.listStat[(int)Stat.stats.ChanceCrit].GetValue(attaquant);
                     Roll.Attaque(chanceToucher, chanceCrit, out resultat, out resultatCrit, out reussite, out reussiteCrit);
                     break;
                 case "dist":
-                    chanceToucher = attaquant.listStat[(int)Stat.stats.CT] - defenseur.listStat[(int)Stat.stats.ResistanceDist];
-                    chanceCrit = attaquant.listStat[(int)Stat.stats.ChanceCrit];
+                    chanceToucher = attaquant.listStat[(int)Stat.stats.CT].GetValue(attaquant) - defenseur.listStat[(int)Stat.stats.ResistanceDist].GetValue(defenseur);
+                    chanceCrit = attaquant.listStat[(int)Stat.stats.ChanceCrit].GetValue(attaquant);
                     Roll.Attaque(chanceToucher, chanceCrit, out resultat, out resultatCrit, out reussite, out reussiteCrit);
                     break;
             }

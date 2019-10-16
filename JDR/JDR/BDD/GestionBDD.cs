@@ -123,7 +123,17 @@ namespace JDR.BDD
             return conn.GetTable("perso", out dicData["perso"].ds, out dicData["perso"].da);
         }
 
-        public Boolean GetPersoById(int id)
+
+        public DataTable GetPersoById(int id)
+        {
+            if (!dicData.ContainsKey("perso"))
+            {
+                dicData.Add("perso", new DataConn());
+            }
+            return conn.GetLigneFromTable("perso", id, out dicData["perso"].ds, out dicData["perso"].da);
+        }
+
+        /*public Boolean GetPersoById(int id)
         {
             DataSet ds = null;
             NpgsqlDataAdapter da = null;
@@ -143,7 +153,7 @@ namespace JDR.BDD
             }
             // la même sur la sous race
             return true;
-        }
+        }*/
 
         public DataTable GetStatPersoByID(int id)
         {

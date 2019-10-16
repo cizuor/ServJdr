@@ -88,6 +88,7 @@
     <Compile Include="Outil\DicoFloat.cs" />
     <Compile Include="Model\Perso.cs" />
     <Compile Include="Model\Race.cs" />
+    <Compile Include="Outil\GestionValeur.cs" />
     <Compile Include="RemplireBDD\AddRace.cs">
       <SubType>Form</SubType>
     </Compile>

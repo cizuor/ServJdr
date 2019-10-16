@@ -14,6 +14,8 @@ namespace JDR
         public int id;
         public String nom;
         public String prenom;
+        public String definition;
+        public Boolean vivant;
         public Race race;
         public SousRace sousRace;
         public Classe classe;
@@ -22,19 +24,32 @@ namespace JDR
         public DicoFloat autreStat;// dées et bonnus lier au lvl
         public DicoFloat buffDebuff;
         private GestionBDD bdd;
-        private Dictionary<int, Stat> listStat;// liste de toute les stat du jeux 
+        public Dictionary<int, Stat> listStat;// liste de toute les stat du jeux 
 
         public Perso()
         {
             bdd = new GestionBDD();
         }
 
-        private void GetPerso()
+        private Perso(int id)
         {
-
+            bdd = new GestionBDD();
+            DataTable tPerso = bdd.GetPersoById(id);
+            DataRow[] drPerso = tPerso.Select();
+            int idRace = Int32.Parse( drPerso[0]["race"].ToString());
+            int idSousRace = Int32.Parse(drPerso[0]["sousrace"].ToString());
+            int idClasse = Int32.Parse(drPerso[0]["classe"].ToString());
+            nom = drPerso[0]["nom"].ToString();
+            prenom = drPerso[0]["prenom"].ToString();
+            definition = drPerso[0]["definition"].ToString();
+            lvl = Int32.Parse(drPerso[0]["niveau"].ToString());
+            vivant = Boolean.Parse(drPerso[0]["vivant"].ToString());
             // recup les info du perso 
-            int idRace = 0;
-            int idSousRace;
+
+            race = new Race(idRace);
+            sousRace = new SousRace(idSousRace);
+            classe = new Classe(idClasse);
+
             List<int> idCarriere;
             int idCurrentClasse;
             DicoFloat raceStat;
@@ -43,7 +58,7 @@ namespace JDR
             DicoFloat deeStat;
 
             // recup les stat de sa race
-            DataTable tRace = bdd.GetRaceById(idRace);
+            
 
             // recup les stat de sa sous race 
 
@@ -60,11 +75,6 @@ namespace JDR
             // recup ses blessure grave 
 
             // lance le calcule des stat
-
-        }
-
-        public void LvlUp(Classe prochaineClasse)
-        {
 
         }
 

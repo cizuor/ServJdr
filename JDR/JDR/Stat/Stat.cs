@@ -11,7 +11,7 @@ namespace JDR
         public int id;
         public int valeur;
         abstract public int GetValue(Perso perso);
-
+        abstract public int GetValueForTest(Perso perso);
 
         public enum Typestats
         {
