@@ -28,7 +28,7 @@ namespace JDR
             {
                 total += perso.listStat[id].GetValue(perso);
             }
-            total += (float)Math.Round((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + perso.autreStat[this.id]) + (perso.classe.stat[this.id] * perso.lvl) + perso.histoire.stat[this.id]);
+            total += (float)Math.Round((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + perso.autreStat[this.id]) + (perso.classe.stat[this.id] * perso.lvl) + perso.histoire.stat[this.id] + perso.buffDebuff[this.id]);
             return total;
         }
     }

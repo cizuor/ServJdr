@@ -22,7 +22,7 @@ namespace JDR
 
         public override float CalculeStat(Perso perso)
         {
-            return (float)Math.Round((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + perso.autreStat[this.id]) * (1 + perso.classe.stat[this.id] * perso.lvl) + perso.histoire.stat[this.id]);
+            return (float)Math.Round((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + perso.autreStat[this.id]) * (1 + perso.classe.stat[this.id] * perso.lvl) + perso.histoire.stat[this.id] + perso.buffDebuff[this.id]);
 
         }
     }
