@@ -21,7 +21,7 @@ namespace JDR
             return GestionValeur.GetValeurOn100(CalculeStat(perso)) ;
         }
 
-        public  override float CalculeStat(Perso perso)
+        protected override float CalculeStat(Perso perso)
         {
             float total = 0;
             foreach (int id in statUtile)
