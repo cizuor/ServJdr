@@ -6,21 +6,27 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace JDR
-{
+{/// <summary>
+/// les stat qui ne sont pas multiplicative , critique , PA , PM ....
+/// </summary>
     class StatSecondaire : Stat
     {
 
 
         public override int GetValue(Perso perso)
         {
-            float total = (float)Math.Round((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + perso.autreStat[this.id]) * perso.classe.stat[this.id] + perso.histoire.stat[this.id]);
-            return GestionValeur.GetValeur(total);
+            return GestionValeur.GetValeur(CalculeStat(perso));
         }
 
         public override int GetValueForTest(Perso perso)
         {
-            float total = (float)Math.Round((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + perso.autreStat[this.id]) * perso.classe.stat[this.id] + perso.histoire.stat[this.id]);
-            return GestionValeur.GetValeurOn100(total);
+            return GestionValeur.GetValeurOn100(CalculeStat(perso));
+        }
+
+        public override float CalculeStat(Perso perso)
+        {
+            return (float)Math.Round((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + perso.autreStat[this.id]) * (1 + perso.classe.stat[this.id] * perso.lvl) + perso.histoire.stat[this.id]);
+
         }
     }
 }

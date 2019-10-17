@@ -12,7 +12,7 @@ namespace JDR
         public int valeur;
         abstract public int GetValue(Perso perso);
         abstract public int GetValueForTest(Perso perso);
-
+        abstract public float CalculeStat(Perso perso);
         public enum Typestats
         {
             Base = 0,
