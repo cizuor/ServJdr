@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace JDR.Outil
 {
-    class DicoFloat : Dictionary<int, float>
+    public class DicoInt : Dictionary<int, int>
     {
 
 
-        public float this[int key] {
+        public int this[int key] {
             get
             {
-                float retour = 0;
+                int retour = 0;
                 if(!this.TryGetValue(key, out retour))
                 {
                     retour = 0;
@@ -22,7 +22,6 @@ namespace JDR.Outil
                 return retour;
             }
                 set => this[key] = value;
-
         }
 
     }

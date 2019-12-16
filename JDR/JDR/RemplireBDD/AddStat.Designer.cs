@@ -49,9 +49,9 @@
             this.dataGridViewTable = new System.Windows.Forms.DataGridView();
             this.cbTableJointure = new System.Windows.Forms.ComboBox();
             this.btnValiderJointure = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.bindingSourcetable = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceJointure = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJointure)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigatorTable)).BeginInit();

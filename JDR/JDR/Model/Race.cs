@@ -15,7 +15,7 @@ namespace JDR
         public int id;
         public String nom;
         public String description;
-        public DicoFloat stat;
+        public DicoInt stat;
         public Dictionary<String, String> dée;
 
 
@@ -29,12 +29,12 @@ namespace JDR
             this.description = rowrace[0]["definition"].ToString();
             DataTable tStatRace = bdd.GetStatRaceByID(id);
             DataRow[] statsRace = tStatRace.Select();
-            stat = new DicoFloat();
+            stat = new DicoInt();
 
             foreach (DataRow row in statsRace)
             {
                 int idstat = Int32.Parse(row["id_stat"].ToString());
-                float valeur = float.Parse(row["valeur"].ToString());
+                int valeur = Int32.Parse(row["valeur"].ToString());
                 stat.Add(idstat, valeur);
             }
         }

@@ -1,4 +1,5 @@
 ﻿using JDR.BDD;
+using JDR.Model.Objet;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,6 +31,23 @@ namespace JDR.CreationPerso
 
         public void initialiseIHM()
         {
+
+            Perso perso = new Perso(4);
+            ResultatAttaque result = perso.AttaqueCac(perso);
+            int type;
+            Items obj = Items.GetItems(1,out type);
+            int test = perso.listStat[(int)Stat.stats.PointAction].GetValue();
+            int prix = obj.GetPrix();
+            int poid = obj.GetPoid();
+            Equipement epee = null;
+            obj = (Equipement)obj;
+            if(type == (int)Items.TypeObjet.Arme)
+            {
+                epee = (Equipement)obj;
+            }
+            prix = epee.GetPrix();
+            poid = epee.GetPoid();
+
             conn = new GestionBDD();
             tRace = conn.GetRaces();
             raceJouable = tRace.Select("jouable = TRUE");

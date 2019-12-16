@@ -10,9 +10,22 @@ namespace JDR
     {
         public int id;
         public int valeur;
-        abstract public int GetValue(Perso perso);
-        abstract public int GetValueForTest(Perso perso);
-        abstract protected float CalculeStat(Perso perso);
+        public String nom;
+        public String description;
+        public Perso perso;
+        abstract public int GetValue();
+        abstract public int GetValueForTest();
+        abstract protected int CalculeStat();
+
+        public Stat(int id,int valeur , String nom , String description , Perso perso)
+        {
+            this.id = id;
+            this.valeur = valeur;
+            this.nom = nom;
+            this.description = description;
+            this.perso = perso;
+        }
+
         public enum Typestats
         {
             Base = 0,
@@ -106,7 +119,9 @@ namespace JDR
             NBPetS = 80,
             NBPetM = 81,
             NBPetL = 82,
+            NBBras = 83
 
         }
+
     }
 }

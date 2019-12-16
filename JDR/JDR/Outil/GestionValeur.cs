@@ -15,7 +15,7 @@ namespace JDR.Outil
 
         public static int GetValeurOn100(float valeur)
         {
-            return (int)(100 - (100 / (Math.Pow((valeur / 50), 2))));
+            return (int)(100 - (100 / (Math.Pow(2, (valeur / 50)))));
         }
 
     }

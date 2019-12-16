@@ -43,7 +43,7 @@ namespace JDR.BDD
             
         }
 
-        private DataTable GetTableSql(String sql, out DataSet ds, out NpgsqlDataAdapter da)
+        public DataTable GetTableSql(String sql, out DataSet ds, out NpgsqlDataAdapter da)
         {
             conn.Open();
             ds = null;
@@ -64,6 +64,31 @@ namespace JDR.BDD
             }
             
         }
+
+
+        public Boolean ExecuteQuery(String sql, out DataSet ds, out NpgsqlDataAdapter da)
+        {
+            conn.Open();
+            ds = null;
+            da = null;
+            try
+            {
+                ds = new DataSet();
+                da = new NpgsqlDataAdapter(sql, conn);
+                ds.Reset();
+                da.Fill(ds);
+                conn.Close();
+                return true;
+            }
+            catch
+            {
+                conn.Close();
+                return false;
+            }
+
+        }
+
+
         public int SubmitDataSetChanges(NpgsqlDataAdapter m_DataAdapter , DataSet m_DataSet)
         {
             conn.Open();
@@ -76,16 +101,6 @@ namespace JDR.BDD
             conn.Close();
             return response;
         }
-
-        private Boolean Insert(DataRow[] existingRow  , DataRow newDataRow)
-        {
-            Boolean retour = false;
-
-
-
-            return retour;
-        }
-
 
 
 
@@ -121,16 +136,22 @@ namespace JDR.BDD
             return this.GetTableSql(sql, out ds, out da);
         }
 
-
-
-        public DataTable GetJointureFrom(String nomTable1, String nomTable2, int id, out DataSet ds, out NpgsqlDataAdapter da)
+        public DataTable GetStatCalculé(int id, out DataSet ds, out NpgsqlDataAdapter da)
         {
-            String sql = "select * from bdd." + nomTable1 + nomTable2+ " join bdd."+ nomTable2 +"  on " + nomTable2 + ".id = "+ nomTable1 + nomTable2 + ".id_" + nomTable2 + " where id_"+ nomTable1 + " = " + id;
+            String sql = "select * from bdd.statcalculer  where id_stat = " + id;
             ds = null;
             da = null;
             return this.GetTableSql(sql, out ds, out da);
         }
 
+
+        public DataTable GetJointureFrom(String nomTable1, String nomTable2, int id, out DataSet ds, out NpgsqlDataAdapter da)
+        {
+            String sql = "select * from bdd." + nomTable2 + nomTable1+ " join bdd."+ nomTable2 +"  on " + nomTable2 + ".id = "+ nomTable2 + nomTable1 + ".id_" + nomTable2 + " where id_"+ nomTable1 + " = " + id;
+            ds = null;
+            da = null;
+            return this.GetTableSql(sql, out ds, out da);
+        }
 
     }
 }

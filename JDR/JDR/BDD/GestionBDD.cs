@@ -19,6 +19,39 @@ namespace JDR.BDD
             dicData = new Dictionary<string, DataConn>();
         }
 
+
+        public Boolean ExecuteQuery(String table , String sql)
+        {
+            if (!dicData.ContainsKey(table))
+            {
+                dicData.Add(table, new DataConn());
+            }
+            return conn.ExecuteQuery(sql, out dicData[table].ds, out dicData[table].da);
+        }
+
+
+
+
+        public DataTable GetStat()
+        {
+            if (!dicData.ContainsKey("stat"))
+            {
+                dicData.Add("stat", new DataConn());
+            }
+            return conn.GetTable("stat", out dicData["stat"].ds, out dicData["stat"].da);
+        }
+
+
+
+        public DataTable GetStatCalculer(int id)
+        {
+            if (!dicData.ContainsKey("statcalculer"))
+            {
+                dicData.Add("statcalculer", new DataConn());
+            }
+            return conn.GetStatCalculé(id, out dicData["statcalculer"].ds, out dicData["statcalculer"].da);
+        }
+
         public DataTable GetRaces()
         {
             if (!dicData.ContainsKey("race"))
@@ -108,7 +141,7 @@ namespace JDR.BDD
         {
             if (!dicData.ContainsKey("statclasse"))
             {
-                dicData.Add("statclassejoin", new DataConn());
+                dicData.Add("statclasse", new DataConn());
             }
             return conn.GetStatFrom("classe", id, out dicData["statclasse"].ds, out dicData["statclasse"].da);
         }
@@ -165,7 +198,118 @@ namespace JDR.BDD
             return conn.GetStatFrom("perso", id, out dicData["statperso"].ds, out dicData["statperso"].da);
         }
 
+        public DataTable GetObjetPersoByID(int id)
+        {
+            if (!dicData.ContainsKey("objetperso"))
+            {
+                dicData.Add("objetperso", new DataConn());
+            }
+            return conn.GetJointureFrom("perso", "objet", id, out dicData["objetperso"].ds, out dicData["objetperso"].da);
+        }
 
+
+
+
+        public DataTable GetItems()
+        {
+            if (!dicData.ContainsKey("objet"))
+            {
+                dicData.Add("objet", new DataConn());
+            }
+            return conn.GetTable("objet", out dicData["objet"].ds, out dicData["objet"].da);
+        }
+
+        public DataTable GetItemById(int id)
+        {
+            if (!dicData.ContainsKey("objet"))
+            {
+                dicData.Add("objet", new DataConn());
+            }
+            return conn.GetLigneFromTable("objet", id, out dicData["objet"].ds, out dicData["objet"].da);
+        }
+
+        public DataTable GetGenre()
+        {
+            if (!dicData.ContainsKey("genre"))
+            {
+                dicData.Add("genre", new DataConn());
+            }
+            return conn.GetTable("genre", out dicData["genre"].ds, out dicData["genre"].da);
+        }
+
+        public DataTable GetGenreById(int id)
+        {
+            if (!dicData.ContainsKey("genre"))
+            {
+                dicData.Add("genre", new DataConn());
+            }
+            return conn.GetLigneFromTable("genre", id, out dicData["genre"].ds, out dicData["genre"].da);
+        }
+
+        public DataTable GetStatGenreByID(int id)
+        {
+            if (!dicData.ContainsKey("statgenre"))
+            {
+                dicData.Add("statgenre", new DataConn());
+            }
+            return conn.GetStatFrom("genre", id, out dicData["statgenre"].ds, out dicData["statgenre"].da);
+        }
+
+
+        public DataTable GetMateriel()
+        {
+            if (!dicData.ContainsKey("materiel"))
+            {
+                dicData.Add("materiel", new DataConn());
+            }
+            return conn.GetTable("materiel", out dicData["materiel"].ds, out dicData["materiel"].da);
+        }
+
+        public DataTable GetMaterielById(int id)
+        {
+            if (!dicData.ContainsKey("materiel"))
+            {
+                dicData.Add("materiel", new DataConn());
+            }
+            return conn.GetLigneFromTable("materiel", id, out dicData["materiel"].ds, out dicData["materiel"].da);
+        }
+
+        public DataTable GetStatMaterielByID(int id)
+        {
+            if (!dicData.ContainsKey("statmateriel"))
+            {
+                dicData.Add("statmateriel", new DataConn());
+            }
+            return conn.GetStatFrom("materiel", id, out dicData["statmateriel"].ds, out dicData["statmateriel"].da);
+        }
+
+
+        public DataTable GetQualite()
+        {
+            if (!dicData.ContainsKey("qualite"))
+            {
+                dicData.Add("qualite", new DataConn());
+            }
+            return conn.GetTable("qualite", out dicData["qualite"].ds, out dicData["qualite"].da);
+        }
+
+        public DataTable GetQualiteById(int id)
+        {
+            if (!dicData.ContainsKey("qualite"))
+            {
+                dicData.Add("qualite", new DataConn());
+            }
+            return conn.GetLigneFromTable("qualite", id, out dicData["qualite"].ds, out dicData["qualite"].da);
+        }
+
+        public DataTable GetStatQualiteByID(int id)
+        {
+            if (!dicData.ContainsKey("statqualite"))
+            {
+                dicData.Add("statqualite", new DataConn());
+            }
+            return conn.GetStatFrom("qualite", id, out dicData["statqualite"].ds, out dicData["statqualite"].da);
+        }
 
         /// <summary>
         /// renvoi ta datatable demander 

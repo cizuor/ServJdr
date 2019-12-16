@@ -11,21 +11,34 @@ namespace JDR
 /// </summary>
     class StatSecondaire : Stat
     {
-
-
-        public override int GetValue(Perso perso)
+        public StatSecondaire(int id, int valeur, string nom, string description , Perso perso) : base(id, valeur, nom, description, perso)
         {
-            return GestionValeur.GetValeur(CalculeStat(perso));
         }
 
-        public override int GetValueForTest(Perso perso)
+        public override int GetValue()
         {
-            return GestionValeur.GetValeurOn100(CalculeStat(perso));
+            return GestionValeur.GetValeur(CalculeStat());
         }
 
-        protected override float CalculeStat(Perso perso)
+        public override int GetValueForTest()
         {
-            return (float)Math.Round((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + perso.autreStat[this.id]) * (1 + perso.classe.stat[this.id] * perso.lvl) + perso.histoire.stat[this.id] + perso.buffDebuff[this.id]);
+            return GestionValeur.GetValeurOn100(CalculeStat());
+        }
+
+        protected override int CalculeStat()
+        {
+
+            int tmp = perso.race.stat[this.id];
+            int tmp2 = perso.sousRace.stat[this.id];
+            int tmp3 = valeur;
+            int tmp4 = perso.classe.stat[this.id];
+            int tmp5 = perso.classe.stat[this.id] * perso.lvl;
+            int tmp6 = perso.histoire.stat[this.id];
+            int tmp7 = perso.buffDebuff[this.id].valeur;
+
+
+
+            return (perso.race.stat[this.id] + perso.sousRace.stat[this.id] + valeur) + (perso.classe.stat[this.id] * perso.lvl) + perso.histoire.stat[this.id] + perso.buffDebuff[this.id].valeur;
 
         }
     }

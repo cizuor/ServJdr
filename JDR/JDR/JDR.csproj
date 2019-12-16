@@ -64,6 +64,7 @@
     <Compile Include="BDD\Connection.cs" />
     <Compile Include="BDD\GestionBDD.cs" />
     <Compile Include="BDD\InitClasses.cs" />
+    <Compile Include="Model\Buff.cs" />
     <Compile Include="Model\Classe.cs" />
     <Compile Include="CreationPerso\CreationPerso.cs" />
     <Compile Include="CreationPerso\SelectClass.cs">
@@ -85,9 +86,18 @@
       <DependentUpon>SelectRace.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Histoire.cs" />
-    <Compile Include="Outil\DicoFloat.cs" />
+    <Compile Include="Model\Objet\Equipement.cs" />
+    <Compile Include="Model\Objet\CreationObjet.cs" />
+    <Compile Include="Model\Objet\Genre.cs" />
+    <Compile Include="Model\Objet\Materiel.cs" />
+    <Compile Include="Model\Objet\Items.cs" />
+    <Compile Include="Model\Objet\Qualite.cs" />
+    <Compile Include="Model\Objet\Utilitaire.cs" />
+    <Compile Include="Outil\DicoBuff.cs" />
+    <Compile Include="Outil\DicoInt.cs" />
     <Compile Include="Model\Perso.cs" />
     <Compile Include="Model\Race.cs" />
+    <Compile Include="Outil\GenerationObjet.cs" />
     <Compile Include="Outil\GestionValeur.cs" />
     <Compile Include="RemplireBDD\AddRace.cs">
       <SubType>Form</SubType>
@@ -101,6 +111,12 @@
     <Compile Include="RemplireBDD\AddStat.Designer.cs">
       <DependentUpon>AddStat.cs</DependentUpon>
     </Compile>
+    <Compile Include="RemplireBDD\IHMAddRace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemplireBDD\IHMAddRace.Designer.cs">
+      <DependentUpon>IHMAddRace.cs</DependentUpon>
+    </Compile>
     <Compile Include="ResultatAttaque.cs" />
     <Compile Include="Outil\Roll.cs" />
     <Compile Include="Model\SousRace.cs" />
@@ -108,6 +124,7 @@
     <Compile Include="Stat\StatCalculé.cs" />
     <Compile Include="Stat\StatPrincipale.cs" />
     <Compile Include="Stat\StatSecondaire.cs" />
+    <Compile Include="Terrain.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -153,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RemplireBDD\AddStat.resx">
       <DependentUpon>AddStat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemplireBDD\IHMAddRace.resx">
+      <DependentUpon>IHMAddRace.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

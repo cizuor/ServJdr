@@ -15,7 +15,12 @@ namespace JDR
         public String qualité;
         public String défault;
         public String partiPour;
-        public DicoFloat stat;
+        public DicoInt stat;
+
+        public Histoire()
+        {
+            stat = new DicoInt();
+        }
 
     }
 }

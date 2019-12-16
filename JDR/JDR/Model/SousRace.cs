@@ -14,7 +14,7 @@ namespace JDR
         public int id;
         public String nom;
         public String description;
-        public DicoFloat stat;
+        public DicoInt stat;
         private GestionBDD bdd;
 
 
@@ -28,12 +28,12 @@ namespace JDR
             this.description = rowrace[0]["definition"].ToString();
             DataTable tStatSousRace = bdd.GetStatSousRaceByID(id);
             DataRow[] statsSousRace = tStatSousRace.Select();
-            stat = new DicoFloat();
+            stat = new DicoInt();
 
             foreach (DataRow row in statsSousRace)
             {
                 int idstat = Int32.Parse(row["id_stat"].ToString());
-                float valeur = float.Parse(row["valeur"].ToString());
+                int valeur = Int32.Parse(row["valeur"].ToString());
                 stat.Add(idstat, valeur);
             }
         }

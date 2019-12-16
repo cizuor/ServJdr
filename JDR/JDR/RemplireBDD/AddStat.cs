@@ -31,14 +31,20 @@ namespace JDR.RemplireBDD
             cbTable.Items.Add("sousrace");
             cbTable.Items.Add("zoneeffect");
             cbTable.Items.Add("perso");
-
+            cbTable.Items.Add("arme");
+            cbTable.Items.Add("genre");
+            cbTable.Items.Add("materiel");
+            cbTable.Items.Add("objet");
+            cbTable.Items.Add("qualite");
+            cbTable.Items.Add("comp");
 
             cbTableJointure.Items.Add("statcalculer");
             cbTableJointure.Items.Add("statclasse");
             cbTableJointure.Items.Add("statrace");
             cbTableJointure.Items.Add("statsousrace");
             cbTableJointure.Items.Add("statperso");
-            cbTableJointure.Items.Add("racesousrace");
+            cbTableJointure.Items.Add("sousracerace");
+            cbTableJointure.Items.Add("objetperso");
             conn = Connection.GetConnection();
 
         }
@@ -94,7 +100,7 @@ namespace JDR.RemplireBDD
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AddRace screen = new AddRace();
+            IHMAddRace screen = new IHMAddRace();
             screen.ShowDialog();
         }
     }

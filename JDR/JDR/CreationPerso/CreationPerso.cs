@@ -13,8 +13,6 @@ namespace JDR.CreationPerso
 {
     class CreationPerso
     {
-
-
         public int CreatNewPerso(int idRace , int idClasse , int idSousRace , int lvl,String nom,String prenom , String description)
         {
             int idPerso = -1;
@@ -22,7 +20,7 @@ namespace JDR.CreationPerso
             // getStatRace 
             DataTable tStatRace = conn.GetStatRaceByID(idRace);
             DataRow[] statsRace = tStatRace.Select();
-            DicoFloat stats = RandDicePerso(statsRace);
+            DicoInt stats = RandDicePerso(statsRace);
 
             DataTable tPerso = conn.GetPersos();
             DataRow[] rowPerso = tPerso.Select();
@@ -66,9 +64,9 @@ namespace JDR.CreationPerso
             return idPerso;
         }
 
-        public DicoFloat RandDicePerso(DataRow[] statsRace)
+        public DicoInt RandDicePerso(DataRow[] statsRace)
         {
-            DicoFloat stats = new DicoFloat();
+            DicoInt stats = new DicoInt();
             foreach(DataRow row in statsRace)
             {
                 int taille = -1;
@@ -77,7 +75,7 @@ namespace JDR.CreationPerso
                 Int32.TryParse(row["typedée"].ToString(),out taille);
                 Int32.TryParse(row["NBDée"].ToString(), out nb);
                 Int32.TryParse(row["id_stat"].ToString(), out id);
-                float value = Roll.JetDée(taille, nb);
+                int value = Roll.JetDée(taille, nb);
                 stats.Add(id, value);
             }
             return stats;

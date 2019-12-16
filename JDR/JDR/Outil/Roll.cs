@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JDR.Model.Objet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,8 +44,23 @@ namespace JDR
                 réussite = false;
                 critique = false;
             }
-
         }
+
+        public static int Degats(Equipement arme)
+        {
+            int degats = 0;
+            int resultat = JetDée(arme.GetTypeDée(), arme.GetNbDée());
+            resultat = resultat + arme.GetBaseDamage();
+            resultat = (int)((resultat * (arme.GetDamage()+100))/100);
+            degats = resultat;
+            return degats;
+        }
+
+
+
+
+
+
         public static void Jet100(float objectif, out int resultat, out Boolean réussite)
         {
             resultat = JetDée(100, 1);
