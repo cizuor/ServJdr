@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace JDR.Model.Objet
 {
-    public class Utilitaire : Items
+    class Composant : Items
     {
-
-        public Utilitaire(int id, int type, String nom, String definition, int prix, int poid) : base(id, type, nom, definition, prix, poid)
+        public Composant(int id, int type, String nom, String definition, int prix, int poid) : base(id, type, nom, definition, prix, poid)
         {
         }
 
-        public override int GetId()
+        public override int GetPrix()
         {
-            return this.id;
+            return this.prix;
         }
 
         public override int GetPoid()
@@ -23,9 +22,9 @@ namespace JDR.Model.Objet
             return this.poid;
         }
 
-        public override int GetPrix()
+        public override int GetId()
         {
-            return this.prix;
+            return this.id;
         }
     }
 }

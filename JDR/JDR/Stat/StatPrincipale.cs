@@ -1,4 +1,5 @@
-﻿using JDR.Outil;
+﻿using JDR.Model.Objet;
+using JDR.Outil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +26,15 @@ namespace JDR
 
         protected override int CalculeStat()
         {
-            int tmp = perso.classe.stat[this.id] * perso.lvl;
-            int tmp2 = perso.race.stat[this.id] + perso.sousRace.stat[this.id] + valeur;
-            int tmp3 = (perso.race.stat[this.id] + perso.sousRace.stat[this.id] + valeur) * (1 + perso.classe.stat[this.id] * perso.lvl);
 
 
-            return ((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + valeur) * (100 + perso.classe.stat[this.id] * perso.lvl))/100 + perso.histoire.stat[this.id] + perso.buffDebuff[this.id].valeur;
+            int bonusEquip = 0;
+            foreach (Equipement equip in perso.listEquipement)
+            {
+                bonusEquip += equip.GetStat(id);
+            }
+
+            return ((perso.race.stat[this.id] + perso.sousRace.stat[this.id] + valeur) * (100 + perso.classe.stat[this.id] * perso.lvl))/100 + perso.histoire.stat[this.id] + perso.buffDebuff[this.id].valeur + bonusEquip;
 
         }
     }

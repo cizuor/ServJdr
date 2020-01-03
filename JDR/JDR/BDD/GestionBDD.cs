@@ -207,6 +207,15 @@ namespace JDR.BDD
             return conn.GetJointureFrom("perso", "objet", id, out dicData["objetperso"].ds, out dicData["objetperso"].da);
         }
 
+        public DataTable GetObjetsPerso()
+        {
+            if (!dicData.ContainsKey("objetperso"))
+            {
+                dicData.Add("objetperso", new DataConn());
+            }
+            return conn.GetTable("objetperso", out dicData["objetperso"].ds, out dicData["objetperso"].da);
+        }
+
 
 
 
@@ -334,6 +343,73 @@ namespace JDR.BDD
             public DataSet ds;
             public NpgsqlDataAdapter da;
         }
+
+        /// <summary>
+        /// trouve l'objet et lui met la valeur de isEquipe dans le bollean d'équipement
+        /// </summary>
+        /// <param name="idPerso"></param>
+        /// <param name="idObjet"></param>
+        /// <param name="isEquipe"></param>
+        /// <returns></returns>
+        public Boolean GestionEquipement(int idPerso , int idObjet , Boolean isEquipe)
+        {
+            DataTable tItemPerso = GetObjetsPerso();
+            DataRow[] rowItems = tItemPerso.Select("id_objet = '" + idObjet + "' and id_perso = '" + idPerso + "' ");
+            foreach(DataRow row in rowItems)
+            {
+                if(Int32.Parse(row["id_objet"].ToString()) == idObjet)
+                {
+                    row["isequipe"] = isEquipe;
+                    this.SubmitDataSetChanges("objetperso");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        /// <summary>
+        /// si l'objet est loot alors le rajoute sinon le suprime 
+        /// </summary>
+        /// <param name="idPerso"></param>
+        /// <param name="idObjet"></param>
+        /// <param name="isLoot"></param>
+        /// <returns></returns>
+        public Boolean GestionLoot(int idPerso, int idObjet, Boolean isLoot)
+        {
+            DataTable tItemPerso = GetObjetsPerso();
+            DataRow[] rowItems = tItemPerso.Select("id_objet = '" + idObjet + "' and id_perso = '" + idPerso + "' ");
+            if (isLoot)
+            {
+                foreach (DataRow row in rowItems)
+                {
+                    if (Int32.Parse(row["id_objet"].ToString()) == idObjet) // l'objet est déja dans l'inventaire
+                    {
+                        return false ;
+                    }
+                }
+                DataRow item = tItemPerso.NewRow();
+                item["id_objet"] = idObjet;
+                item["id_perso"] = idPerso;
+                item["isequipe"] = false;
+                tItemPerso.Rows.Add(item);
+                this.SubmitDataSetChanges("objetperso");
+                return true;
+            }
+            else
+            {
+                foreach (DataRow row in rowItems)
+                {
+                    if (Int32.Parse(row["id_objet"].ToString()) == idObjet)
+                    {
+                        tItemPerso.Rows.Remove(row);
+                        this.SubmitDataSetChanges("objetperso");
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
 
     }
 }

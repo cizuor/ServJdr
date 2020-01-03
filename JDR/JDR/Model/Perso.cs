@@ -10,7 +10,7 @@ using JDR.Outil;
 
 namespace JDR
 {
-    class Perso
+    class Perso : IComparable
     {
         public int id;
         public String nom;
@@ -33,6 +33,8 @@ namespace JDR
         public int MouvementRestant;
         public int PARestant;
         public int numEquipe;
+        public int coutPM;
+        public int PVActuelle;
 
         public Perso()
         {
@@ -95,15 +97,10 @@ namespace JDR
                     inventaire.Add(item);
                 }
             }
-            // recup sont équipement 
-
-            // recup sont inventaire
-
+            PVActuelle = listStat[(int)Stat.stats.PV].GetValue();
             // recup ses blessure grave 
 
             // lance le calcule des stat
-
-            int CC = listStat[0].GetValue();
 
         }
 
@@ -133,14 +130,42 @@ namespace JDR
             }
         }
 
-        public ResultatAttaque AttaqueCac(Perso cible)
+        public List<ResultatAttaque> Attaque(Perso cible)
         {
-            return new ResultatAttaque(this, cible,"cac");
+            Boolean Touche = false ;
+            List < ResultatAttaque > result = new List<ResultatAttaque>();
+            int dist = Math.Abs(cible.positionX - positionX) + Math.Abs(cible.positionY - positionY);
+            if (PARestant >= 200)
+            {
+                foreach (Equipement arme in listEquipement)
+                {
+                    if (arme.IsInRange(dist))
+                    {
+                        result.Add(new ResultatAttaque(this, cible, arme));
+                        if (!Touche)
+                        {
+                            PARestant -= 200;
+                            Touche = true;// pour ne pas utilisé de PA si on ne peut pas attaquer
+                        }
+                    }
+                    else if (arme.type == (int)Genre.TypeObjet.Arme)
+                    {
+                        result.Add(new ResultatAttaque("Hors de porter"));
+                    }
+                }
+            }
+            else
+            {
+                result.Add(new ResultatAttaque("pas assez le PA"));
+            }
+            foreach (ResultatAttaque touche in result)
+            {
+                cible.PVActuelle -= touche.degatSubit;
+            }
+            return result;
         }
-        public ResultatAttaque AttaqueDist(Perso cible)
-        {
-            return new ResultatAttaque(this, cible, "dist");
-        }
+
+
 
         public Boolean JetStat(int idStat , int bonus , out float objectif , out int resultat)
         {
@@ -155,16 +180,15 @@ namespace JDR
         public Boolean NewTour()
         {
             PARestant = listStat[(int)Stat.stats.PointAction].GetValue();
+            coutPM = 100;
+            MouvementRestant = 0;
             return true;
         }
-
-
-
 
         public Boolean Deplacement(int x , int y)
         {
             int dist = Math.Abs(x - positionX) + Math.Abs(y - positionY);
-            if (dist < MouvementRestant)
+            if (dist <= MouvementRestant)
             {
                 MouvementRestant = MouvementRestant - dist;
                 positionX = x;
@@ -174,9 +198,92 @@ namespace JDR
             return false;
         }
 
+        /// <summary>
+        /// essaye d'équiper l'objet en testant le nombre de main 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns> le boolean réussi ou non </returns>
+        public Boolean Equipe (Equipement item)
+        {
+            if (PARestant >= 100)
+            {
+                int nbmain = this.listStat[(int)Stat.stats.NBBras].GetValue();
+                int mainOccupé = 0;
+                foreach (Equipement obj in this.listEquipement)
+                {
+                    mainOccupé = mainOccupé + obj.GetNbMain();
+                }
+
+                if (mainOccupé + item.GetNbMain() <= nbmain)
+                {
+                    this.listEquipement.Add(item);
+                    PARestant -= 100;
+                    return bdd.GestionEquipement(this.id, item.GetId(), true);
+                    
+                }
+            }
+            return false;
+        }
+        public Boolean UnEquipe(Equipement item)
+        {
+            foreach (Equipement obj in this.listEquipement)
+            {
+                if (item.GetId() == obj.GetId())
+                {
+                    this.listEquipement.Remove(obj);
+                    return bdd.GestionEquipement(this.id, item.GetId(), false);
+                }
+            }
+            return false;
+        }
 
 
 
+
+        public Boolean Ramasser (Items item)
+        {
+            int encaissement = this.listStat[(int)Stat.stats.Encaissement].GetValue();
+            int poid = 0;
+            foreach (Items obj in this.inventaire)
+            {
+                poid = poid + obj.GetPoid();
+            }
+
+            if (poid + item.GetPoid()<=encaissement)
+            {
+                inventaire.Add(item);
+                return bdd.GestionLoot(this.id, item.GetId(), true);
+            }
+            return false;
+        }
+
+
+        public Boolean AddMove()
+        {
+            if (coutPM <= PARestant)
+            {
+                PARestant = PARestant - coutPM;
+                coutPM = coutPM +100;
+                MouvementRestant = MouvementRestant + listStat[(int)Stat.stats.Mouvement].GetValue();
+                return true;
+            }
+            return false;
+        }
+
+        public int CompareTo(Perso obj)
+        {
+            return id.CompareTo(obj.id);
+        }
+
+        public int CompareTo(object obj)
+        {
+            if(obj is Perso)
+            {
+                Perso p = (Perso)obj;
+                return id.CompareTo(p.id);
+            }
+            throw new ArgumentException(" vous comparer un perso a un objet qui n'est pas un perso");
+        }
     }
 
 }

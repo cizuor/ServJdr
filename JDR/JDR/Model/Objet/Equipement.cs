@@ -9,24 +9,15 @@ namespace JDR.Model.Objet
 {
     public class Equipement : Items
     {
-        public Qualite qualité;
-        public Materiel materiel;
-        public Genre genre;
-        public int nbMains;
-        public int idAttaque;
 
 
-        public Equipement(int id, int type, String nom, String definition, int prix, int poid, int idGenre,int idMateriel, int idQualite,int nbMains,int idAttaque) : base(id, type, nom, definition, prix, poid)
+        public Equipement(int id, int type, String nom, String definition, int prix, int poid, Genre genre,Materiel materiel, Qualite qualite) : base(id, type, nom, definition, prix, poid, genre, materiel, qualite)
         {
-            this.nbMains = nbMains;
-            this.idAttaque = idAttaque;
-            this.genre = new Genre(idGenre);
-            this.materiel = new Materiel(idMateriel);
-            this.qualité = new Qualite(idQualite);
-            int total = genre.prix * (1-(qualité.prix + materiel.prix)/100);
+            int total = genre.prix * (((qualité.prix + materiel.prix)/100)-1);
             base.prix= total;
-            total = genre.poid * (1-(qualité.poid + materiel.poid)/100);
+            total = genre.poid * (((qualité.poid + materiel.poid)/100)-1);
             base.poid = total;
+            SetMalusAg();
         }
 
         private void SetMalusAg()
@@ -38,7 +29,7 @@ namespace JDR.Model.Objet
             }
         }
 
-        public int GetPrix()
+        public override int GetPrix()
         {
             int total = (genre.prix * ((qualité.prix + materiel.prix)-100))/100;
             return total;
@@ -89,9 +80,9 @@ namespace JDR.Model.Objet
         {
             float total = genre.armureBase + qualité.armureBase + materiel.armureBase;
             total = total + (
-                (total * genre.armureBonus) +
-                (total * qualité.armureBonus) +
-                (total * materiel.armureBonus));
+                ((total * genre.armureBonus)/100) +
+                ((total * qualité.armureBonus)/100) +
+                ((total * materiel.armureBonus)/100));
             return (int)total;
         }
 
@@ -105,7 +96,7 @@ namespace JDR.Model.Objet
             return (int)total;
         }
 
-        public int GetPoid()
+        public override int GetPoid()
         {
             float total = (genre.poid * ((qualité.poid + materiel.poid)-100))/100;
             return (int)total;
@@ -133,5 +124,25 @@ namespace JDR.Model.Objet
             return genre.typeEquipement;
         }
 
+        public Boolean IsInRange(int dist)
+        {
+            if(dist >= genre.pMin && dist <= genre.pMax)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        public int GetNbMain()
+        {
+            return genre.nbMains;
+        }
+
+
+        public override int GetId()
+        {
+            return this.id;
+        }
     }
 }

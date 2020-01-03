@@ -37,9 +37,10 @@ namespace JDR
 
         public Perso NextToPlay()
         {
+            SortedList<Perso, int> listPersotmp = new SortedList<Perso, int>(listPerso);
             while (next.Count == 0)
             { 
-                foreach (Perso p in listPerso.Keys)
+                foreach (Perso p in listPersotmp.Keys)
                 {
                     listPerso[p] +=  p.listStat[(int)Stat.stats.Initiative].GetValue() + Roll.JetDée(20,1);
                     if (listPerso[p]>1000)

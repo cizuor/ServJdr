@@ -40,6 +40,13 @@ namespace JDR
             screen.ShowDialog();
         }
 
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+            Test screen = new Test();
+            screen.ShowDialog();
+        }
+
+
         private void NewPerso_Click(object sender, RoutedEventArgs e)
         {
             SelectRace screen = new SelectRace();

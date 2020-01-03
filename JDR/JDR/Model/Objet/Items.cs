@@ -8,26 +8,22 @@ using System.Threading.Tasks;
 
 namespace JDR.Model.Objet
 {
-    public class Items
+    public abstract class Items
     {
         protected int id;
         protected String nom;
         protected String definition;
-        protected int type;
+        public int type;
         protected int poid;
         protected int prix;
+        public Qualite qualité;
+        public Materiel materiel;
+        public Genre genre;
         private GestionBDD bdd;
 
-        public int GetPrix()
-        {
-            return this.prix;
-        }
-        public int GetPoid()
-        {
-            return this.poid;
-        }
-
-
+        abstract public int GetPrix();
+        abstract public int GetPoid();
+        abstract public int GetId();
         public static Items GetItems(int id, out int type)
         {
             GestionBDD bdd = new GestionBDD();
@@ -37,26 +33,27 @@ namespace JDR.Model.Objet
             type = Int32.Parse(drItems[0]["type"].ToString());
             String nom = drItems[0]["nom"].ToString();
             String definition = drItems[0]["definition"].ToString();
-            int prix = Int32.Parse(drItems[0]["id_genre"].ToString());
-            int poid = Int32.Parse(drItems[0]["id_materiel"].ToString());
+            int prix = Int32.Parse(drItems[0]["prix"].ToString());
+            int poid = Int32.Parse(drItems[0]["poid"].ToString());
+            int idGenre = Int32.Parse(drItems[0]["id_genre"].ToString());
+            int idMateriel = Int32.Parse(drItems[0]["id_materiel"].ToString());
+            int idQualite = Int32.Parse(drItems[0]["id_qualite"].ToString());
+            Genre genre = new Genre(idGenre);
+            Materiel materiel = new Materiel(idMateriel);
+            Qualite qualité = new Qualite(idQualite);
             switch (type)
             {
-                case (int)TypeObjet.Utilitaire:
-                    return new Items(id, type, nom, definition, prix, poid);
-                case (int)TypeObjet.Consommable:
+                case (int)Genre.TypeObjet.Utilitaire:
+                    return new Utilitaire(id, type, nom, definition, prix, poid);
+                case (int)Genre.TypeObjet.Consommable:
                     Console.WriteLine("Case 1");
                     break;
-                case (int)TypeObjet.Arme:
-                    int idGenre = Int32.Parse(drItems[0]["id_genre"].ToString());
-                    int idMateriel = Int32.Parse(drItems[0]["id_materiel"].ToString());
-                    int idQualite = Int32.Parse(drItems[0]["id_qualite"].ToString());
-                    int nbMain = Int32.Parse(drItems[0]["nbmain"].ToString());
-                    int idAttaque = Int32.Parse(drItems[0]["id_attaque"].ToString());
-                    int idEffect = Int32.Parse(drItems[0]["id_effect"].ToString());
-                    return new Equipement(id, type, nom, definition, prix, poid, idGenre, idMateriel, idQualite, nbMain, idAttaque);
-                case (int)TypeObjet.Armure:
-                    Console.WriteLine("Case 2");
-                    break;
+                case (int)Genre.TypeObjet.Arme:
+                    return new Equipement(id, type, nom, definition, prix, poid, genre, materiel, qualité);
+                case (int)Genre.TypeObjet.Armure:
+                    return new Equipement(id, type, nom, definition, prix, poid, genre, materiel, qualité);
+                case (int)Genre.TypeObjet.Composant:
+                    return new Composant(id, type, nom, definition, prix, poid);
                 default:
                     Console.WriteLine("inconnue");
                     break;
@@ -66,7 +63,6 @@ namespace JDR.Model.Objet
         public Items(int id)
         {
             bdd = new GestionBDD();
-
             this.id = id;
             DataTable tItems = bdd.GetItemById(id);
             DataRow[] drItems = tItems.Select();
@@ -78,7 +74,7 @@ namespace JDR.Model.Objet
         }
 
 
-        public Items(int id, int type, String nom, String definition, int prix, int poid)
+        public Items(int id, int type, String nom, String definition, int prix, int poid, Genre genre, Materiel materiel, Qualite qualité)
         {
             bdd = new GestionBDD();
 
@@ -90,13 +86,7 @@ namespace JDR.Model.Objet
             this.poid = poid;
         }
 
-        public enum TypeObjet
-        {
-            Utilitaire = 0,
-            Consommable = 1,
-            Arme = 2,
-            Armure = 3
-        }
+       
     }
 
 }

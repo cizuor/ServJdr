@@ -21,7 +21,14 @@ namespace JDR.Outil
                 }
                 return retour;
             }
-                set => this[key] = value;
+            set
+            {
+                if (this.ContainsKey(key))
+                {
+                    this.Remove(key);
+                }
+                this.Add(key, value);
+            }
         }
 
     }

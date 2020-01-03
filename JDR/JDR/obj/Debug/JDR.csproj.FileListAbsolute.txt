@@ -61,3 +61,4 @@ C:\JDR\Serveur\JDR\JDR\obj\Debug\JDR.csproj.CopyComplete
 C:\JDR\Serveur\JDR\JDR\obj\Debug\JDR.exe
 C:\JDR\Serveur\JDR\JDR\obj\Debug\JDR.pdb
 C:\JDR\Serveur\JDR\JDR\obj\Debug\JDR.RemplireBDD.IHMAddRace.resources
+C:\JDR\Serveur\JDR\JDR\obj\Debug\JDR.Test.resources

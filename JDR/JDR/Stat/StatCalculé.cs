@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JDR.BDD;
+using JDR.Model.Objet;
 using JDR.Outil;
 
 namespace JDR
@@ -42,7 +43,13 @@ namespace JDR
             {
                 total += (perso.listStat[id].GetValue() * (statUtile[id]))/100;
             }
-            total += (perso.race.stat[this.id] + perso.sousRace.stat[this.id] + valeur) + (perso.classe.stat[this.id] * perso.lvl) + perso.histoire.stat[this.id] + perso.buffDebuff[this.id].valeur;
+            int bonusEquip = 0;
+            foreach (Equipement equip in perso.listEquipement)
+            {
+                bonusEquip += equip.GetStat(id);
+            }
+
+            total += (perso.race.stat[this.id] + perso.sousRace.stat[this.id] + valeur) + (perso.classe.stat[this.id] * perso.lvl) + perso.histoire.stat[this.id] + perso.buffDebuff[this.id].valeur + bonusEquip;
             return total;
         }
     }

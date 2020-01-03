@@ -49,7 +49,7 @@ namespace JDR.CreationPerso
             {
 
                 CreationPerso creatNewPerso = new CreationPerso();
-                int idPerso = creatNewPerso.CreatNewPerso(idRace, idSousRace, idClasse, 0,nom,prenom,description);
+                int idPerso = creatNewPerso.CreatNewPerso(idRace, idClasse, idSousRace, 0,nom,prenom,description);
             }
             else
             {

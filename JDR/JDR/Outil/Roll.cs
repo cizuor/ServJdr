@@ -17,7 +17,7 @@ namespace JDR
             int retour = 0;
             int i = 0;
             for (i = 0 ; i < nb; i++){
-                retour += rand.Next(taille + 1);
+                retour += rand.Next(taille)+1;
             }
             return retour;
         } 

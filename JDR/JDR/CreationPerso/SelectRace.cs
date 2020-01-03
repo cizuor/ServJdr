@@ -29,10 +29,11 @@ namespace JDR.CreationPerso
 
 
 
+
         public void initialiseIHM()
         {
 
-            Perso perso = new Perso(4);
+            /*Perso perso = new Perso(4);
             ResultatAttaque result = perso.AttaqueCac(perso);
             int type;
             Items obj = Items.GetItems(1,out type);
@@ -47,7 +48,7 @@ namespace JDR.CreationPerso
             }
             prix = epee.GetPrix();
             poid = epee.GetPoid();
-
+            */
             conn = new GestionBDD();
             tRace = conn.GetRaces();
             raceJouable = tRace.Select("jouable = TRUE");
