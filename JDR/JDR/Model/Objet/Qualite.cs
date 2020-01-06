@@ -29,6 +29,8 @@ namespace JDR.Model.Objet
         public int rmBonus;
         public int degatcrit;
         public int pSort;
+        public int duree;
+        public int chancecrit;
         public DicoInt stat;
         private GestionBDD bdd;
 
@@ -55,6 +57,8 @@ namespace JDR.Model.Objet
             this.rmBonus = Int32.Parse(drQualite[0]["rmbonus"].ToString());
             this.degatcrit = Int32.Parse(drQualite[0]["dcrit"].ToString());
             this.pSort = Int32.Parse(drQualite[0]["psort"].ToString());
+            this.duree = Int32.Parse(drQualite[0]["duree"].ToString());
+            this.chancecrit = Int32.Parse(drQualite[0]["chanccrit"].ToString());
             DataTable tStatQualite = bdd.GetStatQualiteByID(id);
             DataRow[] statsQualite = tStatQualite.Select();
             stat = new DicoInt();

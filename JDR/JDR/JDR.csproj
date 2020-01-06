@@ -112,6 +112,12 @@
     <Compile Include="RemplireBDD\AddStat.Designer.cs">
       <DependentUpon>AddStat.cs</DependentUpon>
     </Compile>
+    <Compile Include="RemplireBDD\IHMAddItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemplireBDD\IHMAddItem.Designer.cs">
+      <DependentUpon>IHMAddItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="RemplireBDD\IHMAddRace.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RemplireBDD\AddStat.resx">
       <DependentUpon>AddStat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemplireBDD\IHMAddItem.resx">
+      <DependentUpon>IHMAddItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RemplireBDD\IHMAddRace.resx">
       <DependentUpon>IHMAddRace.cs</DependentUpon>

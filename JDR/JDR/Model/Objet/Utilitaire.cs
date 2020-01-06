@@ -9,10 +9,9 @@ namespace JDR.Model.Objet
     public class Utilitaire : Items
     {
 
-        public Utilitaire(int id, int type, String nom, String definition, int prix, int poid) : base(id, type, nom, definition, prix, poid)
+        public Utilitaire(int id, int type, String nom, String definition, int prix, int poid, Genre genre, Materiel materiel, Qualite qualité) : base(id, type, nom, definition, prix, poid, genre, materiel, qualité)
         {
         }
-
         public override int GetId()
         {
             return this.id;

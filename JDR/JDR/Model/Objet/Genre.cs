@@ -35,6 +35,8 @@ namespace JDR.Model.Objet
         public int nbMains;
         public int pMin;
         public int pMax;
+        public int duree;
+        public int chancecrit;
         public DicoInt stat;
         private GestionBDD bdd;
 
@@ -47,7 +49,7 @@ namespace JDR.Model.Objet
             this.poid = Int32.Parse(drGenre[0]["poid"].ToString());
             this.prix = Int32.Parse(drGenre[0]["prix"].ToString());
             this.typeEquipement = Int32.Parse(drGenre[0]["typequip"].ToString());
-            this.typeObjet = Int32.Parse(drGenre[0]["typeobjet"].ToString());
+            this.typeObjet = Int32.Parse(drGenre[0]["type"].ToString());
             this.nom = drGenre[0]["nom"].ToString();
             this.definition = drGenre[0]["definition"].ToString();
             this.typeDée = Int32.Parse(drGenre[0]["typedee"].ToString());
@@ -67,6 +69,8 @@ namespace JDR.Model.Objet
             this.nbMains = Int32.Parse(drGenre[0]["nbmains"].ToString());
             this.pMin = Int32.Parse(drGenre[0]["portermin"].ToString());
             this.pMax = Int32.Parse(drGenre[0]["portermax"].ToString());
+            this.duree = Int32.Parse(drGenre[0]["duree"].ToString());
+            this.chancecrit = Int32.Parse(drGenre[0]["chanccrit"].ToString());
             DataTable tStatGenre = bdd.GetStatGenreByID(id);
             DataRow[] statsGenre = tStatGenre.Select();
             stat = new DicoInt();
@@ -83,9 +87,7 @@ namespace JDR.Model.Objet
         {
             cac = 1,
             dist = 2,
-            legère =3,
-            moyenne = 4,
-            lourde = 5
+            armure =3,
         }
         public enum TypeObjet
         {

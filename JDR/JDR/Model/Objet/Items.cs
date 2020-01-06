@@ -44,7 +44,7 @@ namespace JDR.Model.Objet
             switch (type)
             {
                 case (int)Genre.TypeObjet.Utilitaire:
-                    return new Utilitaire(id, type, nom, definition, prix, poid);
+                    return new Utilitaire(id, type, nom, definition, prix, poid, genre, materiel, qualité);
                 case (int)Genre.TypeObjet.Consommable:
                     Console.WriteLine("Case 1");
                     break;
@@ -53,24 +53,12 @@ namespace JDR.Model.Objet
                 case (int)Genre.TypeObjet.Armure:
                     return new Equipement(id, type, nom, definition, prix, poid, genre, materiel, qualité);
                 case (int)Genre.TypeObjet.Composant:
-                    return new Composant(id, type, nom, definition, prix, poid);
+                    return new Composant(id, type, nom, definition, prix, poid, genre, materiel, qualité);
                 default:
                     Console.WriteLine("inconnue");
                     break;
             }
             return null;
-        }
-        public Items(int id)
-        {
-            bdd = new GestionBDD();
-            this.id = id;
-            DataTable tItems = bdd.GetItemById(id);
-            DataRow[] drItems = tItems.Select();
-            this.type = Int32.Parse(drItems[0]["type"].ToString());
-            this.nom = drItems[0]["nom"].ToString();
-            this.definition = drItems[0]["definition"].ToString();
-            this.prix = Int32.Parse(drItems[0]["id_genre"].ToString());
-            this.poid = Int32.Parse(drItems[0]["id_materiel"].ToString());
         }
 
 
@@ -84,6 +72,10 @@ namespace JDR.Model.Objet
             this.definition = definition;
             this.prix = prix;
             this.poid = poid;
+            this.genre = genre;
+            this.materiel = materiel;
+            this.qualité = qualité;
+
         }
 
        

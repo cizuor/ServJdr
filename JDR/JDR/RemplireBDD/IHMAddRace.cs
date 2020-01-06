@@ -35,6 +35,7 @@ namespace JDR.RemplireBDD
             // getStatRace 
             DataTable tStat = conn.GetStat();
             DataRow[] drStat = tStat.Select();
+
             foreach (DataRow stat in drStat)
             {
                 Label labelStat = null;
@@ -177,7 +178,7 @@ namespace JDR.RemplireBDD
                 if (conn.ExecuteQuery(type, sqlupdate))
                 {
                     String sqlDelete = "delete from bdd.stat" + type + " where id = " + id;
-                    if (conn.ExecuteQuery(type, sqlupdate))
+                    if (conn.ExecuteQuery(type, sqlDelete))
                     {
                         foreach (int idStat in listTextBox.Keys)
                         {
