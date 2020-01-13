@@ -144,14 +144,14 @@ namespace JDR.RemplireBDD
                         tbBonusRM.Text = item["rmbonus"].ToString();
                         tbDegatsCrit.Text = item["dcrit"].ToString();
                         tbPSort.Text = item["psort"].ToString();
-                        tbNbMain.Text = item["nbmains"].ToString();
                         tbDurée.Text = item["duree"].ToString();
                         tbChanceCrit.Text = item["chanccrit"].ToString();
-                        cbLootable.Checked = Boolean.Parse(item["loot"].ToString());
                         int typeitem = Int32.Parse(item["type"].ToString());
 
                         if (type == "genre")
                         {
+                            cbLootable.Checked = Boolean.Parse(item["loot"].ToString());
+                            tbNbMain.Text = item["nbmains"].ToString();
                             tbPorterMin.Text = item["portermin"].ToString();
                             tbPorterMax.Text = item["portermax"].ToString();
                         }
@@ -255,12 +255,12 @@ namespace JDR.RemplireBDD
                 item["rmbonus"] = tbBonusRM.Text;
                 item["dcrit"] = tbDegatsCrit.Text;
                 item["psort"] = tbPSort.Text;
-                item["nbmains"] = tbNbMain.Text;
                 item["duree"] = tbDurée.Text;
                 item["chanccrit"] = tbChanceCrit.Text;
-                item["loot"] = cbLootable.Checked;
                 if (type == "genre")
                 {
+                    item["loot"] = cbLootable.Checked;
+                    item["nbmains"] = tbNbMain.Text;
                     item["portermin"] = tbPorterMin.Text;
                     item["portermax"] = tbPorterMax.Text;
                 }
@@ -321,17 +321,17 @@ namespace JDR.RemplireBDD
                 item["rmbonus"] = tbBonusRM.Text;
                 item["dcrit"] = tbDegatsCrit.Text;
                 item["psort"] = tbPSort.Text;
-                item["nbmains"] = tbNbMain.Text;
                 item["duree"] = tbDurée.Text;
                 item["chanccrit"] = tbChanceCrit.Text;
-                item["loot"] = cbLootable.Checked;
                 if (type == "genre")
                 {
+                    item["loot"] = cbLootable.Checked;
+                    item["nbmains"] = tbNbMain.Text;
                     item["portermin"] = tbPorterMin.Text;
                     item["portermax"] = tbPorterMax.Text;
                 }
                 conn.SubmitDataSetChanges(type);
-                String sqlDelete = "delete from bdd.stat" + type + " where id = " + id;
+                String sqlDelete = "delete from bdd.stat" + type + " where id_"+type+" = " + id;
                 if (conn.ExecuteQuery(type, sqlDelete))
                 {
                     foreach (int idStat in listTextBox.Keys)
@@ -350,6 +350,36 @@ namespace JDR.RemplireBDD
                 }
                 
             }
+        }
+
+        private void listtype_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            type = listtype.SelectedItem.ToString();
+            cbExistant.Items.Clear();
+            cbExistant.Items.Add("nouveau");
+            DataTable ttype = null;
+            switch (type)
+            {
+                case "genre":
+                    ttype = conn.GetGenre();
+                    break;
+                case "materiel":
+                    ttype = conn.GetMateriel();
+                    break;
+                case "qualite":
+                    ttype = conn.GetQualite();
+                    break;
+                default:
+
+                    break;
+            }
+            rowTable = ttype.Select();
+            foreach (DataRow item in rowTable)
+            {
+                cbExistant.Items.Add(item["id"].ToString() + " : " + item["nom"].ToString());
+            }
+            
         }
     }
 }

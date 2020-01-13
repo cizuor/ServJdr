@@ -36,25 +36,41 @@ namespace JDR.Model.Objet
         }
         public int GetTypeDée()
         {
-            int total = genre.typeDée;// * (qualité.typeDée + materiel.typeDée);
+            int total = 0;
+            if (genre.typeEquipement != (int)Genre.typeEquipementBase.armure)
+            {
+                total = genre.typeDée;// * (qualité.typeDée + materiel.typeDée);
+            }
             return total;
         }
 
         public int GetNbDée()
         {
-            int total = genre.nbDée;//* (qualité.nbDée + materiel.nbDée);
+            int total = 0;
+            if (genre.typeEquipement != (int)Genre.typeEquipementBase.armure)
+            {
+                total = genre.nbDée;//* (qualité.nbDée + materiel.nbDée);
+            }
             return total;
         }
 
         public int GetDamage()
         {
-            int total = genre.damage + qualité.damage + materiel.damage;
+            int total = 0;
+            if (genre.typeEquipement != (int)Genre.typeEquipementBase.armure)
+            {
+                total = genre.damage + qualité.damage + materiel.damage;
+            }
             return total;
         }
 
         public int GetBaseDamage()
         {
-            int total = genre.baseDamage + qualité.baseDamage + materiel.baseDamage;
+            int total = 0;
+            if (genre.typeEquipement != (int)Genre.typeEquipementBase.armure)
+            {
+                total = genre.baseDamage + qualité.baseDamage + materiel.baseDamage;
+            }
             return total;
         }
 
@@ -78,21 +94,29 @@ namespace JDR.Model.Objet
 
         public int GetArmor()
         {
-            float total = genre.armureBase + qualité.armureBase + materiel.armureBase;
-            total = total + (
-                ((total * genre.armureBonus)/100) +
-                ((total * qualité.armureBonus)/100) +
-                ((total * materiel.armureBonus)/100));
+            float total = 0;
+            if (genre.typeEquipement == (int)Genre.typeEquipementBase.armure || genre.typeEquipement == (int)Genre.typeEquipementBase.bouclier)
+            {
+                total = genre.armureBase + qualité.armureBase + materiel.armureBase;
+                total = total + (
+                    ((total * genre.armureBonus) / 100) +
+                    ((total * qualité.armureBonus) / 100) +
+                    ((total * materiel.armureBonus) / 100));
+            }
             return (int)total;
         }
 
         public int GetRM()
         {
-            float total = genre.armureBase + qualité.armureBase + materiel.armureBase;
-            total = total + (
-                (total * genre.rmBonus) +
-                (total * qualité.rmBonus) +
-                (total * materiel.rmBonus));
+            float total = 0;
+            if (genre.typeEquipement == (int)Genre.typeEquipementBase.armure || genre.typeEquipement == (int)Genre.typeEquipementBase.bouclier)
+            {
+                total = genre.armureBase + qualité.armureBase + materiel.armureBase;
+                total = total + (
+                    (total * genre.rmBonus) +
+                    (total * qualité.rmBonus) +
+                    (total * materiel.rmBonus));
+            }
             return (int)total;
         }
 

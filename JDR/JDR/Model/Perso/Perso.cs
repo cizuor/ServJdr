@@ -36,11 +36,6 @@ namespace JDR
         public int coutPM;
         public int PVActuelle;
 
-        public Perso()
-        {
-            bdd = new GestionBDD();
-        }
-
         public Perso(int id)
         {
             bdd = new GestionBDD();

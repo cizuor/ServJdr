@@ -103,5 +103,11 @@ namespace JDR.RemplireBDD
             IHMAddRace screen = new IHMAddRace();
             screen.ShowDialog();
         }
+
+        private void btnAddItem_Click(object sender, EventArgs e)
+        {
+            IHMAddItem screen = new IHMAddItem();
+            screen.ShowDialog();
+        }
     }
 }

@@ -93,6 +93,8 @@ namespace JDR
                 btnAddMove2.Enabled = false;
                 btnMove1.Enabled = true;
                 btnMove2.Enabled = false;
+                textBoxX.Text = perso1.positionX.ToString();
+                textBoxY.Text = perso1.positionY.ToString();
                 perso1.NewTour();
             }
             else
@@ -104,6 +106,8 @@ namespace JDR
                 btnAddMove2.Enabled = true;
                 btnMove1.Enabled = false;
                 btnMove2.Enabled = true;
+                textBoxX.Text = perso2.positionX.ToString();
+                textBoxY.Text = perso2.positionY.ToString();
                 perso2.NewTour();
             }
         }

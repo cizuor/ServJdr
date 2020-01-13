@@ -158,6 +158,7 @@
             this.listtype.Name = "listtype";
             this.listtype.Size = new System.Drawing.Size(55, 43);
             this.listtype.TabIndex = 17;
+            this.listtype.SelectedIndexChanged += new System.EventHandler(this.listtype_SelectedIndexChanged);
             // 
             // lbltype
             // 

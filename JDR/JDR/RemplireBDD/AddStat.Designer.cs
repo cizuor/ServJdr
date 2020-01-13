@@ -52,6 +52,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.bindingSourcetable = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceJointure = new System.Windows.Forms.BindingSource(this.components);
+            this.btnAddItem = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJointure)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigatorTable)).BeginInit();
@@ -95,6 +96,7 @@
             this.tableLayoutPanel1.Controls.Add(this.cbTableJointure, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.btnValiderJointure, 9, 14);
             this.tableLayoutPanel1.Controls.Add(this.button1, 7, 7);
+            this.tableLayoutPanel1.Controls.Add(this.btnAddItem, 5, 7);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 15;
@@ -299,6 +301,16 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnAddItem
+            // 
+            this.btnAddItem.Location = new System.Drawing.Point(368, 185);
+            this.btnAddItem.Name = "btnAddItem";
+            this.btnAddItem.Size = new System.Drawing.Size(67, 20);
+            this.btnAddItem.TabIndex = 13;
+            this.btnAddItem.Text = "Add Item";
+            this.btnAddItem.UseVisualStyleBackColor = true;
+            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
+            // 
             // AddStat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -343,5 +355,6 @@
         private System.Windows.Forms.Button btnValiderJointure;
         private System.Windows.Forms.BindingSource bindingSourceJointure;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAddItem;
     }
 }

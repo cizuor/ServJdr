@@ -80,7 +80,7 @@ namespace JDR.BDD
                 conn.Close();
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
                 conn.Close();
                 return false;

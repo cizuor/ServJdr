@@ -64,8 +64,9 @@
     <Compile Include="BDD\Connection.cs" />
     <Compile Include="BDD\GestionBDD.cs" />
     <Compile Include="BDD\InitClasses.cs" />
-    <Compile Include="Model\Buff.cs" />
-    <Compile Include="Model\Classe.cs" />
+    <Compile Include="CreationPerso\GenerationPerso.cs" />
+    <Compile Include="Model\Perso\Buff.cs" />
+    <Compile Include="Model\Perso\Classe.cs" />
     <Compile Include="CreationPerso\CreationPerso.cs" />
     <Compile Include="CreationPerso\SelectClass.cs">
       <SubType>Form</SubType>
@@ -85,7 +86,7 @@
     <Compile Include="CreationPerso\SelectRace.Designer.cs">
       <DependentUpon>SelectRace.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\Histoire.cs" />
+    <Compile Include="Model\Perso\Histoire.cs" />
     <Compile Include="Model\Objet\Composant.cs" />
     <Compile Include="Model\Objet\Equipement.cs" />
     <Compile Include="Model\Objet\CreationObjet.cs" />
@@ -96,8 +97,8 @@
     <Compile Include="Model\Objet\Utilitaire.cs" />
     <Compile Include="Outil\DicoBuff.cs" />
     <Compile Include="Outil\DicoInt.cs" />
-    <Compile Include="Model\Perso.cs" />
-    <Compile Include="Model\Race.cs" />
+    <Compile Include="Model\Perso\Perso.cs" />
+    <Compile Include="Model\Perso\Race.cs" />
     <Compile Include="Outil\GenerationObjet.cs" />
     <Compile Include="Outil\GestionValeur.cs" />
     <Compile Include="RemplireBDD\AddRace.cs">
@@ -126,7 +127,7 @@
     </Compile>
     <Compile Include="ResultatAttaque.cs" />
     <Compile Include="Outil\Roll.cs" />
-    <Compile Include="Model\SousRace.cs" />
+    <Compile Include="Model\Perso\SousRace.cs" />
     <Compile Include="Stat\Stat.cs" />
     <Compile Include="Stat\StatCalculé.cs" />
     <Compile Include="Stat\StatPrincipale.cs" />

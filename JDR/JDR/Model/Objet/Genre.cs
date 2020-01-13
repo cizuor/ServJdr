@@ -87,7 +87,8 @@ namespace JDR.Model.Objet
         {
             cac = 1,
             dist = 2,
-            armure =3,
+            armure = 3,
+            bouclier = 4,
         }
         public enum TypeObjet
         {
