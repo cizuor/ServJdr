@@ -1,4 +1,5 @@
 ﻿using JDR.BDD;
+using JDR.CreationPerso;
 using JDR.Model.Objet;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ namespace JDR
         public Test()
         {
             InitializeComponent();
+            GenerationPerso gen = new GenerationPerso(1, 15, 500, 2);
+            gen.GenerateAll();
             bdd = new GestionBDD();
             DataTable tPerso = bdd.GetPersos();
             DataRow[] persos = tPerso.Select();
@@ -192,7 +195,7 @@ namespace JDR
             String[] id = selected.Split(':');
             int type;
             Items item = Items.GetItems(Int32.Parse(id[0]), out type);
-            if (type == (int)Genre.TypeObjet.Arme || type == (int)Genre.TypeObjet.Armure)
+            if (type == (int)Genre.TypeObjet.Equipement)
             {
                 if (perso1.Equipe((Equipement)item))
                 {
@@ -207,7 +210,7 @@ namespace JDR
             String[] id = selected.Split(':');
             int type;
             Items item = Items.GetItems(Int32.Parse(id[0]), out type);
-            if (type == (int)Genre.TypeObjet.Arme || type == (int)Genre.TypeObjet.Armure)
+            if (type == (int)Genre.TypeObjet.Equipement)
             {
                 if (perso2.Equipe((Equipement)item))
                 {
@@ -223,7 +226,7 @@ namespace JDR
             String[] id = selected.Split(':');
             int type;
             Items item = Items.GetItems(Int32.Parse(id[0]), out type);
-            if (type == (int)Genre.TypeObjet.Arme)
+            if (type == (int)Genre.TypeObjet.Equipement)
             {
                 if (perso1.UnEquipe((Equipement)item))
                 {
@@ -238,7 +241,7 @@ namespace JDR
             String[] id = selected.Split(':');
             int type;
             Items item = Items.GetItems(Int32.Parse(id[0]), out type);
-            if (type == (int)Genre.TypeObjet.Arme)
+            if (type == (int)Genre.TypeObjet.Equipement)
             {
                 if (perso2.UnEquipe((Equipement)item))
                 {

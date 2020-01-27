@@ -1,4 +1,5 @@
 ﻿using JDR.BDD;
+using JDR.Model.Objet;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +18,7 @@ namespace JDR.CreationPerso
         private int valEquip;
         private int nbMonstre;
         private List<int> id_Monstre;
+        private int varianceLvl = 20;
 
         public GenerationPerso(int id_Race, int lvl, int valEquip, int nbMonstre,int id_SousRace =-1)
         {
@@ -30,9 +32,14 @@ namespace JDR.CreationPerso
         }
 
 
-        private void GenerateAll()
+        public List<int> GenerateAll()
         {
-            List<int> listidSousRace;
+            //preparation a la geston  du lvl de chaque monstre 
+            List<int> listidSousRace = new List<int>();
+            int varLvl = (lvlMoyen * varianceLvl) / 100;
+
+            //Todo gerrer la classe
+
             if(id_SousRace == -1)
             {
                 listidSousRace = GetSousRace();
@@ -40,12 +47,17 @@ namespace JDR.CreationPerso
             int i;
             for (i = 0 ; i < nbMonstre ; i++)
             {
-                int tmpSousRace = 0;
+                int realLvl = lvlMoyen - varLvl + Roll.JetDée(varLvl * 2, 1);
                 if(id_SousRace == -1)
                 {
-
+                    Generate(id_Race, listidSousRace[i], 1, realLvl, i);
+                }
+                else
+                {
+                    Generate(id_Race, id_SousRace, 1, realLvl, i);
                 }
             }
+            return id_Monstre;
         }
 
 
@@ -54,6 +66,12 @@ namespace JDR.CreationPerso
             CreationPerso builderPerso = new CreationPerso();
             int idPerso = builderPerso.CreatNewPerso(idRace, idClasse, idSousRace, lvl, "mob", num.ToString(), "non");
             Perso perso = new Perso(idPerso);
+            CreationEquipement creation = new CreationEquipement(valEquip, 20, Genre.typeEquipementBase.cac, 1, CreationEquipement.typeCible.Guerrier);
+            int idequip = creation.Generate();
+            int type;
+            Items item = Items.GetItems(idequip,out type);
+            perso.Equipe((Equipement) item);
+
         }
 
         private List<int> GetSousRace()

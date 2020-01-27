@@ -53,8 +53,7 @@ namespace JDR.RemplireBDD
                 listTextBox.Add(Int32.Parse(stat["id"].ToString()), tbNewRef);
             }
 
-            cbItem.Items.Add(Genre.TypeObjet.Arme);
-            cbItem.Items.Add(Genre.TypeObjet.Armure);
+            cbItem.Items.Add(Genre.TypeObjet.Equipement);
             cbItem.Items.Add(Genre.TypeObjet.Composant);
             cbItem.Items.Add(Genre.TypeObjet.Consommable);
             cbItem.Items.Add(Genre.TypeObjet.Utilitaire);

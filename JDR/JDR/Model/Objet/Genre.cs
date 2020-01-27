@@ -94,9 +94,8 @@ namespace JDR.Model.Objet
         {
             Utilitaire = 0,
             Consommable = 1,
-            Arme = 2,
-            Armure = 3,
-            Composant = 4
+            Equipement = 2,
+            Composant = 3
         }
     }
 

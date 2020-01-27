@@ -143,7 +143,7 @@ namespace JDR
                             Touche = true;// pour ne pas utilisé de PA si on ne peut pas attaquer
                         }
                     }
-                    else if (arme.type == (int)Genre.TypeObjet.Arme)
+                    else if (arme.GetTypeEquipement() == (int)Genre.typeEquipementBase.cac || arme.GetTypeEquipement() == (int)Genre.typeEquipementBase.dist)
                     {
                         result.Add(new ResultatAttaque("Hors de porter"));
                     }

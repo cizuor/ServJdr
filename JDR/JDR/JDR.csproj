@@ -89,7 +89,7 @@
     <Compile Include="Model\Perso\Histoire.cs" />
     <Compile Include="Model\Objet\Composant.cs" />
     <Compile Include="Model\Objet\Equipement.cs" />
-    <Compile Include="Model\Objet\CreationObjet.cs" />
+    <Compile Include="Model\Objet\CreationEquipement.cs" />
     <Compile Include="Model\Objet\Genre.cs" />
     <Compile Include="Model\Objet\Materiel.cs" />
     <Compile Include="Model\Objet\Items.cs" />

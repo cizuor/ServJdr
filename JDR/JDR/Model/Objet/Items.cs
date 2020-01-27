@@ -48,9 +48,7 @@ namespace JDR.Model.Objet
                 case (int)Genre.TypeObjet.Consommable:
                     Console.WriteLine("Case 1");
                     break;
-                case (int)Genre.TypeObjet.Arme:
-                    return new Equipement(id, type, nom, definition, prix, poid, genre, materiel, qualité);
-                case (int)Genre.TypeObjet.Armure:
+                case (int)Genre.TypeObjet.Equipement:
                     return new Equipement(id, type, nom, definition, prix, poid, genre, materiel, qualité);
                 case (int)Genre.TypeObjet.Composant:
                     return new Composant(id, type, nom, definition, prix, poid, genre, materiel, qualité);
@@ -67,7 +65,6 @@ namespace JDR.Model.Objet
             bdd = new GestionBDD();
 
             this.id = id;
-            this.type = type;
             this.nom = nom;
             this.definition = definition;
             this.prix = prix;
@@ -75,6 +72,34 @@ namespace JDR.Model.Objet
             this.genre = genre;
             this.materiel = materiel;
             this.qualité = qualité;
+
+        }
+
+
+
+        public static int NewItem(String nom, String definition, int prix, int poid, int id_genre, int id_materiel, int id_qualité)
+        {
+            int idItem = -1;
+            GestionBDD conn = new GestionBDD();
+            // getStatRace 
+            DataTable tObjet = conn.GetItems();
+            DataRow[] rowItems = tObjet.Select();
+            String idtmp = rowItems[rowItems.Count() - 1]["id"].ToString();
+            Int32.TryParse(idtmp, out idItem);
+            idItem++;
+            DataRow item = tObjet.NewRow();
+            item["id"] = idItem;
+            item["nom"] = nom;
+            item["definition"] = definition;
+            item["poid"] = poid;
+            item["prix"] = prix;
+            item["id_genre"] = id_genre;
+            item["id_materiel"] = id_materiel;
+            item["id_qualite"] = id_qualité;
+            tObjet.Rows.Add(item);
+            conn.SubmitDataSetChanges("objet");
+
+            return idItem;
 
         }
 
