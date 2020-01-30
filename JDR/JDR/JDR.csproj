@@ -132,7 +132,8 @@
     <Compile Include="Stat\StatCalculé.cs" />
     <Compile Include="Stat\StatPrincipale.cs" />
     <Compile Include="Stat\StatSecondaire.cs" />
-    <Compile Include="Terrain.cs" />
+    <Compile Include="Field\Case.cs" />
+    <Compile Include="Field\Terrain.cs" />
     <Compile Include="Test.cs">
       <SubType>Form</SubType>
     </Compile>

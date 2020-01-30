@@ -37,6 +37,7 @@ namespace JDR.RemplireBDD
             cbTable.Items.Add("objet");
             cbTable.Items.Add("qualite");
             cbTable.Items.Add("comp");
+            cbTable.Items.Add("effet");
 
             cbTableJointure.Items.Add("statcalculer");
             cbTableJointure.Items.Add("statclasse");
@@ -45,6 +46,7 @@ namespace JDR.RemplireBDD
             cbTableJointure.Items.Add("statperso");
             cbTableJointure.Items.Add("sousracerace");
             cbTableJointure.Items.Add("objetperso");
+            cbTableJointure.Items.Add("stateffet");
             conn = Connection.GetConnection();
 
         }

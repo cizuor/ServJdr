@@ -320,6 +320,17 @@ namespace JDR.BDD
             return conn.GetStatFrom("qualite", id, out dicData["statqualite"].ds, out dicData["statqualite"].da);
         }
 
+
+
+        public DataTable GetActionById(int id)
+        {
+            if (!dicData.ContainsKey("action"))
+            {
+                dicData.Add("action", new DataConn());
+            }
+            return conn.GetLigneFromTable("action", id, out dicData["action"].ds, out dicData["action"].da);
+        }
+
         /// <summary>
         /// renvoi ta datatable demander 
         /// </summary>

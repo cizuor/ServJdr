@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using JDR.BDD;
 using JDR.Model.Objet;
 using JDR.Outil;
+using JDR.Field;
 
 namespace JDR
 {
@@ -35,6 +36,7 @@ namespace JDR
         public int numEquipe;
         public int coutPM;
         public int PVActuelle;
+        public Terrain map;
 
         public Perso(int id)
         {
@@ -182,6 +184,7 @@ namespace JDR
 
         public Boolean Deplacement(int x , int y)
         {
+            return map.DéplacementPerso(this, x, y);
             int dist = Math.Abs(x - positionX) + Math.Abs(y - positionY);
             if (dist <= MouvementRestant)
             {

@@ -119,7 +119,10 @@ namespace JDR
             NBPetS = 80,
             NBPetM = 81,
             NBPetL = 82,
-            NBBras = 83
+            NBBras = 83,
+            PVManquand = 84,
+            PM = 85,
+
 
         }
 
