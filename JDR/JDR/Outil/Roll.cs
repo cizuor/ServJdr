@@ -1,4 +1,5 @@
-﻿using JDR.Model.Objet;
+﻿using JDR.Model.Action;
+using JDR.Model.Objet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,12 +47,12 @@ namespace JDR
             }
         }
 
-        public static int Degats(Equipement arme)
+        public static int Degats(Effet effet)
         {
             int degats = 0;
-            int resultat = JetDée(arme.GetTypeDée(), arme.GetNbDée());
-            resultat = resultat + arme.GetBaseDamage();
-            resultat = (int)((resultat * (arme.GetDamage()+100))/100);
+            int resultat = JetDée(effet.typedee, effet.nbdee);
+            resultat = resultat + effet.basevaleur;
+            //resultat = (int)((resultat * (arme.GetDamage()+100))/100);
             degats = resultat;
             return degats;
         }

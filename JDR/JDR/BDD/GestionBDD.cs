@@ -264,6 +264,17 @@ namespace JDR.BDD
             return conn.GetStatFrom("genre", id, out dicData["statgenre"].ds, out dicData["statgenre"].da);
         }
 
+        public DataTable GetEffetGenreByID(int id)
+        {
+            if (!dicData.ContainsKey("effetgenre"))
+            {
+                dicData.Add("effetgenre", new DataConn());
+            }
+            return conn.GetJointureFrom("genre", "effet", id, out dicData["effetgenre"].ds, out dicData["effetgenre"].da);
+        }
+
+
+
 
         public DataTable GetMateriel()
         {
@@ -291,7 +302,14 @@ namespace JDR.BDD
             }
             return conn.GetStatFrom("materiel", id, out dicData["statmateriel"].ds, out dicData["statmateriel"].da);
         }
-
+        public DataTable GetEffetMaterielByID(int id)
+        {
+            if (!dicData.ContainsKey("effetmateriel"))
+            {
+                dicData.Add("effetmateriel", new DataConn());
+            }
+            return conn.GetJointureFrom("materiel", "effet", id, out dicData["effetmateriel"].ds, out dicData["effetmateriel"].da);
+        }
 
         public DataTable GetQualite()
         {
@@ -320,17 +338,32 @@ namespace JDR.BDD
             return conn.GetStatFrom("qualite", id, out dicData["statqualite"].ds, out dicData["statqualite"].da);
         }
 
-
-
-        public DataTable GetActionById(int id)
+        public DataTable GetEffetQualiteByID(int id)
         {
-            if (!dicData.ContainsKey("action"))
+            if (!dicData.ContainsKey("effetqualite"))
             {
-                dicData.Add("action", new DataConn());
+                dicData.Add("effetqualite", new DataConn());
             }
-            return conn.GetLigneFromTable("action", id, out dicData["action"].ds, out dicData["action"].da);
+            return conn.GetJointureFrom("qualite", "effet", id, out dicData["effetqualite"].ds, out dicData["effetqualite"].da);
         }
 
+        public DataTable GetEffetbyId(int id)
+        {
+            if (!dicData.ContainsKey("effet"))
+            {
+                dicData.Add("effet", new DataConn());
+            }
+            return conn.GetLigneFromTable("effet", id, out dicData["effet"].ds, out dicData["effet"].da);
+        }
+
+        public DataTable GetStatEffetByID(int id)
+        {
+            if (!dicData.ContainsKey("stateffet"))
+            {
+                dicData.Add("stateffet", new DataConn());
+            }
+            return conn.GetStatFrom("effet", id, out dicData["stateffet"].ds, out dicData["stateffet"].da);
+        }
         /// <summary>
         /// renvoi ta datatable demander 
         /// </summary>

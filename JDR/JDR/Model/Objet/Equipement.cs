@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JDR.Model.Action;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,8 +10,6 @@ namespace JDR.Model.Objet
 {
     public class Equipement : Items
     {
-
-
         public Equipement(int id, int type, String nom, String definition, int prix, int poid, Genre genre,Materiel materiel, Qualite qualite) : base(id, type, nom, definition, prix, poid, genre, materiel, qualite)
         {
             int total = genre.prix * (((qualité.prix + materiel.prix)/100)-1);
@@ -34,25 +33,7 @@ namespace JDR.Model.Objet
             int total = (genre.prix * ((qualité.prix + materiel.prix)-100))/100;
             return total;
         }
-        public int GetTypeDée()
-        {
-            int total = 0;
-            if (genre.typeEquipement != (int)Genre.typeEquipementBase.armure)
-            {
-                total = genre.typeDée;// * (qualité.typeDée + materiel.typeDée);
-            }
-            return total;
-        }
 
-        public int GetNbDée()
-        {
-            int total = 0;
-            if (genre.typeEquipement != (int)Genre.typeEquipementBase.armure)
-            {
-                total = genre.nbDée;//* (qualité.nbDée + materiel.nbDée);
-            }
-            return total;
-        }
 
         public int GetDamage()
         {
@@ -61,34 +42,6 @@ namespace JDR.Model.Objet
             {
                 total = genre.damage + qualité.damage + materiel.damage;
             }
-            return total;
-        }
-
-        public int GetBaseDamage()
-        {
-            int total = 0;
-            if (genre.typeEquipement != (int)Genre.typeEquipementBase.armure)
-            {
-                total = genre.baseDamage + qualité.baseDamage + materiel.baseDamage;
-            }
-            return total;
-        }
-
-        public int GetRatioF()
-        {
-            int total = genre.ratioF + qualité.ratioF + materiel.ratioF;
-            return total;
-        }
-
-        public int GetRatioAg()
-        {
-            int total = genre.ratioAg + qualité.ratioAg + materiel.ratioAg;
-            return total;
-        }
-
-        public int GetRatioInt()
-        {
-            int total = genre.ratioInt + qualité.ratioInt + materiel.ratioInt ;
             return total;
         }
 
@@ -162,6 +115,16 @@ namespace JDR.Model.Objet
         {
             return genre.nbMains;
         }
+
+        public List<Effet> GetEffets()
+        {
+            List<Effet> retour = new List<Effet>();
+            retour.AddRange(genre.effets);
+            retour.AddRange(qualité.effets);
+            retour.AddRange(materiel.effets);
+            return retour;
+        }
+
 
 
         public override int GetId()

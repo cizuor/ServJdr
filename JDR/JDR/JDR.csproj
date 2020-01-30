@@ -65,6 +65,7 @@
     <Compile Include="BDD\GestionBDD.cs" />
     <Compile Include="BDD\InitClasses.cs" />
     <Compile Include="CreationPerso\GenerationPerso.cs" />
+    <Compile Include="Model\Action\Effet.cs" />
     <Compile Include="Model\Perso\Buff.cs" />
     <Compile Include="Model\Perso\Classe.cs" />
     <Compile Include="CreationPerso\CreationPerso.cs" />

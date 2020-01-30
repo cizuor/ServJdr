@@ -1,4 +1,5 @@
-﻿using JDR.Model.Objet;
+﻿using JDR.Model.Action;
+using JDR.Model.Objet;
 using JDR.Outil;
 using System;
 using System.Collections.Generic;
@@ -59,30 +60,36 @@ namespace JDR
                 case (int)Genre.typeEquipementBase.cac:
                     if (arme.GetTypeEquipement() == (int)Genre.typeEquipementBase.cac)
                     {
-                        int degatstmp = Roll.Degats(arme);
-                        int RF = (attaquant.listStat[(int)Stat.stats.F].GetValue() * arme.GetRatioF())/100;
-                        int RAg = (attaquant.listStat[(int)Stat.stats.Ag].GetValue() * arme.GetRatioAg())/100;
-                        int RInt = (attaquant.listStat[(int)Stat.stats.Int].GetValue() * arme.GetRatioInt())/100 ;
-                        degatstmp = degatstmp + ((degatstmp * RF) / 100) +
-                            ((degatstmp * RAg) / 100) +
-                            ((degatstmp * RInt) / 100);
-                        if (critique)
+                        // pour chaque effet de l'objet courant
+                        foreach (Effet effet in arme.GetEffets())
                         {
-                            degatstmp = (degatstmp * arme.GetDegatCrit())/100;
+                            int degatstmp = Roll.Degats(effet);
+                            degatstmp = (int)((resultat * (arme.GetDamage() + 100)) / 100);
+                            int val = 0 ;
+                            // pour chaque stat qui a un ratio on calcule le gain et on le somme
+                            foreach (int stat in effet.ratio.Keys)
+                            {
+                                val = val + (degatstmp * ((attaquant.listStat[stat].GetValue() * effet.ratio[stat]) / 100)/100);
+                            }
+                            degatstmp = degatstmp + val;
+                            if (critique)
+                            {
+                                degatstmp = (degatstmp * arme.GetDegatCrit()) / 100;
+                            }
+                            this.degats = this.degats + (int)(degatstmp);
                         }
-                        this.degats = this.degats + (int)(degatstmp);
                     }
                     break;
                 case (int)Genre.typeEquipementBase.dist:
                     if (arme.GetTypeEquipement() == (int)Genre.typeEquipementBase.dist)
                     {
-                        float degatstmp = Roll.Degats(arme);
+                        /*float degatstmp = Roll.Degats(arme);
                         if (critique)
                         {
                             degatstmp = (degatstmp * arme.GetDegatCrit())/100;
                         }
                         
-                        this.degats = this.degats + (int)degatstmp;
+                        this.degats = this.degats + (int)degatstmp;*/
                     }
                     break;
             }

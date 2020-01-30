@@ -1,4 +1,5 @@
 ﻿using JDR.BDD;
+using JDR.Model.Action;
 using JDR.Outil;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,7 @@ namespace JDR.Model.Objet
         public int prix;
         public int typeEquipement;
         public int typeObjet;
-        public int typeDée;
-        public int nbDée;
         public int damage;
-        public int baseDamage;
-        public int ratioF;
-        public int ratioAg;
-        public int ratioInt;
         public int armureBase;
         public int rmBase;
         public int armureBonus;
@@ -35,10 +30,10 @@ namespace JDR.Model.Objet
         public int nbMains;
         public int pMin;
         public int pMax;
-        public int duree;
         public int chancecrit;
         public DicoInt stat;
         private GestionBDD bdd;
+        public List<Effet> effets;
 
         public Genre(int id)
         {
@@ -52,13 +47,7 @@ namespace JDR.Model.Objet
             this.typeObjet = Int32.Parse(drGenre[0]["type"].ToString());
             this.nom = drGenre[0]["nom"].ToString();
             this.definition = drGenre[0]["definition"].ToString();
-            this.typeDée = Int32.Parse(drGenre[0]["typedee"].ToString());
-            this.nbDée = Int32.Parse(drGenre[0]["nbdee"].ToString());
             this.damage = Int32.Parse(drGenre[0]["dommage"].ToString());
-            this.baseDamage = Int32.Parse(drGenre[0]["basedommage"].ToString());
-            this.ratioF = Int32.Parse(drGenre[0]["ratiof"].ToString());
-            this.ratioAg = Int32.Parse(drGenre[0]["ratioag"].ToString());
-            this.ratioInt = Int32.Parse(drGenre[0]["ratioint"].ToString());
             this.armureBase = Int32.Parse(drGenre[0]["armurebase"].ToString());
             this.rmBase = Int32.Parse(drGenre[0]["rmbase"].ToString());
             this.armureBonus = Int32.Parse(drGenre[0]["armurebonus"].ToString());
@@ -69,7 +58,6 @@ namespace JDR.Model.Objet
             this.nbMains = Int32.Parse(drGenre[0]["nbmains"].ToString());
             this.pMin = Int32.Parse(drGenre[0]["portermin"].ToString());
             this.pMax = Int32.Parse(drGenre[0]["portermax"].ToString());
-            this.duree = Int32.Parse(drGenre[0]["duree"].ToString());
             this.chancecrit = Int32.Parse(drGenre[0]["chanccrit"].ToString());
             DataTable tStatGenre = bdd.GetStatGenreByID(id);
             DataRow[] statsGenre = tStatGenre.Select();
@@ -81,6 +69,17 @@ namespace JDR.Model.Objet
                 int valeur = Int32.Parse(row["valeur"].ToString());
                 stat.Add(idstat, valeur);
             }
+
+
+            DataTable tEffetGenre = bdd.GetEffetGenreByID(id);
+            DataRow[] drEffetGenre = tEffetGenre.Select();
+            effets = new List<Effet>();
+
+            foreach (DataRow row in drEffetGenre)
+            {
+                effets.Add( new Effet(Int32.Parse(row["id_effet"].ToString())));
+            }
+
         }
 
         public enum typeEquipementBase

@@ -1,6 +1,7 @@
 ﻿using JDR.BDD;
 using JDR.CreationPerso;
 using JDR.Model.Objet;
+using JDR.Field;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,7 +74,7 @@ namespace JDR
 
         private void PreparationCombat()
         {
-            terrain = new Terrain();
+            terrain = new Terrain(100,100);
             terrain.AddPerso(perso1, 0, 0, 0, false);
             terrain.AddPerso(perso2, 10, 10, 1, false);
             listBoxPerso1.Enabled = false;
