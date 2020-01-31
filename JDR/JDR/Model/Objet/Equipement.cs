@@ -80,7 +80,12 @@ namespace JDR.Model.Objet
         }
         public int GetDegatCrit()
         {
-            int total = (genre.degatcrit * ((qualité.degatcrit + materiel.degatcrit)-100))/100;
+            int total = (genre.degatcrit * qualité.degatcrit * materiel.degatcrit)/ 1000000;
+            return total;
+        }
+        public int GetChanceCrit()
+        {
+            int total = (genre.chancecrit * qualité.chancecrit * materiel.chancecrit) / 1000000;
             return total;
         }
 
@@ -108,8 +113,17 @@ namespace JDR.Model.Objet
                 return true;
             }
             return false;
-
         }
+
+        public int GetMinRange()
+        {
+            return genre.pMin;
+        }
+        public int GetMaxRange()
+        {
+            return genre.pMax;
+        }
+
 
         public int GetNbMain()
         {
@@ -125,7 +139,14 @@ namespace JDR.Model.Objet
             return retour;
         }
 
-
+        public Boolean IsArme()
+        {
+            if(genre.typeEquipement == (int)Genre.typeEquipementBase.cac || genre.typeEquipement == (int)Genre.typeEquipementBase.dist)
+            {
+                return true;
+            }
+            return false;
+        }
 
         public override int GetId()
         {

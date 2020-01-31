@@ -54,7 +54,7 @@ namespace JDR
             ChanceCrit = 15,
             Dos = 16,
             Ps = 17,
-            Degats = 18,
+            //Degats = 18,
             ResistanceEcho = 19,
             ResistanceCaC = 20,
             ResistanceDist = 21,
@@ -110,20 +110,20 @@ namespace JDR
             CritPet = 71,
             PAPet = 72,
             MouvementPet = 73,
-            DegatSubit = 74,
+            /*DegatSubit = 74,
             DegatInfliger = 75,
             DegatSubitMagique = 76,
             DegatInfligerMagique = 77,
             DegatSubitPhysique = 78,
-            DegatInfligerPhysique = 79,
+            DegatInfligerPhysique = 79,*/
             NBPetS = 80,
             NBPetM = 81,
             NBPetL = 82,
             NBBras = 83,
             PVManquand = 84,
             PM = 85,
-
-
+            resTotalphysique = 86,
+            resTotalMagique =87
         }
 
     }

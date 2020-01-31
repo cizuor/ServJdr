@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace JDR
 {
-    class ResultatAttaque
+    class ResultatEffect
     {
         public int degats;
         public int chanceToucher;
@@ -20,110 +20,131 @@ namespace JDR
         public Boolean reussiteCrit;
         public int degatSubit = 0;
         public String erreur;
-        public ResultatAttaque( String msg)
+        public Effet effet;
+        public ResultatEffect( String msg)
         {
             erreur = msg;
         }
 
-        public ResultatAttaque(Perso attaquant, Perso defenseur, Equipement arme)
+        public ResultatEffect(Perso attaquant, Perso defenseur, Effet effet, int ChanceCrit , int dégatsCrit)
         {
-            switch (arme.GetTypeEquipement())
+            /*switch (arme.GetTypeEquipement())
             {
                 case (int) Genre.typeEquipementBase.cac:
                     chanceToucher = attaquant.listStat[(int)Stat.stats.CC].GetValue() - defenseur.listStat[(int)Stat.stats.ResistanceCaC].GetValue() + 50;
                     chanceCrit = attaquant.listStat[(int)Stat.stats.ChanceCrit].GetValue() - defenseur.listStat[(int)Stat.stats.ResistanceCritique].GetValue();
                     chanceToucher = GestionValeur.GetValeurOn100(chanceToucher);
                     chanceCrit = GestionValeur.GetValeurOn100(chanceCrit);
-                    Roll.Attaque(chanceToucher, chanceCrit, out resultat, out resultatCrit, out reussite, out reussiteCrit);
+                    Roll.Attaque(chanceToucher, out resultat, out reussite, int ChanceCrit, int dégatsCrit);
                     break;
                 case (int)Genre.typeEquipementBase.dist:
                     chanceToucher = attaquant.listStat[(int)Stat.stats.CT].GetValue() - defenseur.listStat[(int)Stat.stats.ResistanceDist].GetValue();
                     chanceCrit = attaquant.listStat[(int)Stat.stats.ChanceCrit].GetValue() - defenseur.listStat[(int)Stat.stats.ResistanceCritique].GetValue();
                     chanceToucher = GestionValeur.GetValeurOn100(chanceToucher);
                     chanceCrit = GestionValeur.GetValeurOn100(chanceCrit);
-                    Roll.Attaque(chanceToucher, chanceCrit, out resultat, out resultatCrit, out reussite, out reussiteCrit);
+                    Roll.Attaque(chanceToucher, out resultat, out reussite, int ChanceCrit, int dégatsCrit);
                     break;
             }
             if (reussite)
             {
-                CalculeDégats(attaquant, defenseur, arme, reussiteCrit);
+                CalculeEffet(attaquant, defenseur, arme);
                 ReductionDegats(attaquant, defenseur, "physique");
+            }*/
+            CalculeEffet(attaquant, defenseur, ChanceCrit, dégatsCrit);
+            // si il sagit de dégats
+            if (effet.id_stat == (int)Stat.stats.PVManquand && effet.positif)
+            {
+                ReductionDegats(attaquant, defenseur);
             }
         }
 
-
-        public void CalculeDégats(Perso attaquant, Perso defenseur, Equipement arme, Boolean critique)
+        /// <summary>
+        /// calcule la valeur de l'effet
+        /// </summary>
+        /// <param name="attaquant"></param>
+        /// <param name="defenseur"></param>
+        /// <param name="chanceCritBonus"></param>
+        /// <param name="dégatsCritBonus"></param>
+        public void CalculeEffet(Perso attaquant, Perso defenseur, int chanceCritBonus, int dégatsCritBonus)
         {
             this.degats = 0;
-            switch (arme.GetTypeEquipement())
+            // pour chaque effet de l'objet courant
+           // foreach (Effet effet in arme.GetEffets())
+            //{
+            chanceCrit = attaquant.listStat[(int)Stat.stats.ChanceCrit].GetValue() + (effet.chance_crit * chanceCritBonus) - defenseur.listStat[(int)Stat.stats.ResistanceCritique].GetValue();
+            chanceCrit = GestionValeur.GetValeurOn100(chanceCrit);
+            int nb = Roll.minmax(effet.min_hit, effet.max_hit);
+            int i = 0;
+            for ( i = 0 ; i < nb ; i++ )
             {
-                case (int)Genre.typeEquipementBase.cac:
-                    if (arme.GetTypeEquipement() == (int)Genre.typeEquipementBase.cac)
-                    {
-                        // pour chaque effet de l'objet courant
-                        foreach (Effet effet in arme.GetEffets())
-                        {
-                            int degatstmp = Roll.Degats(effet);
-                            degatstmp = (int)((resultat * (arme.GetDamage() + 100)) / 100);
-                            int val = 0 ;
-                            // pour chaque stat qui a un ratio on calcule le gain et on le somme
-                            foreach (int stat in effet.ratio.Keys)
-                            {
-                                val = val + (degatstmp * ((attaquant.listStat[stat].GetValue() * effet.ratio[stat]) / 100)/100);
-                            }
-                            degatstmp = degatstmp + val;
-                            if (critique)
-                            {
-                                degatstmp = (degatstmp * arme.GetDegatCrit()) / 100;
-                            }
-                            this.degats = this.degats + (int)(degatstmp);
-                        }
-                    }
-                    break;
-                case (int)Genre.typeEquipementBase.dist:
-                    if (arme.GetTypeEquipement() == (int)Genre.typeEquipementBase.dist)
-                    {
-                        /*float degatstmp = Roll.Degats(arme);
-                        if (critique)
-                        {
-                            degatstmp = (degatstmp * arme.GetDegatCrit())/100;
-                        }
-                        
-                        this.degats = this.degats + (int)degatstmp;*/
-                    }
-                    break;
-            }
-            if (critique)
+                //lance le test pour savoir si l'effet est critique 
+                Roll.Attaque(chanceCrit, out resultatCrit, out reussiteCrit);
+                int degatstmp = Roll.Degats(effet);
+                int val = 0;
+                // pour chaque stat qui a un ratio on calcule le gain et on le somme
+                foreach (int stat in effet.ratio.Keys)
+                {
+                    val = val + (degatstmp * ((attaquant.listStat[stat].GetValue() * effet.ratio[stat]) / 100) / 100);
+                }
+                degatstmp = degatstmp + val;
+                if (reussiteCrit)
+                {
+                    degatstmp = (degatstmp * dégatsCritBonus * effet.bonus_crit) / 100;
+                    //degatstmp = (degatstmp * ((arme.GetDegatCrit() * effet.bonus_crit) +)) / 100;
+                    //degatstmp = (degatstmp * arme.GetDegatCrit()) / 100;
+                }
+                    this.degats = this.degats + (int)(degatstmp);
+             }
+            //}
+            /*if (critique)
             {
                 int degatstmp = (this.degats * (attaquant.listStat[(int)Stat.stats.DegatCrit].GetValue()))/100;
                 this.degats = this.degats + (int)degatstmp;
-            }
-            this.degats = (int)((this.degats * (attaquant.listStat[(int)Stat.stats.DegatInfligerPhysique].GetValue() + 100)) / 100);
-            this.degats = (int)((this.degats * (attaquant.listStat[(int)Stat.stats.Degats].GetValue() + 100)) / 100);
+            }*/
+
+          /*  // si il sagit de dégats
+            if (effet.id_stat == (int)Stat.stats.PVManquand && effet.positif)
+            {
+                if (effet.is_magique)
+                {
+                    this.degats = (int)((this.degats * (attaquant.listStat[(int)Stat.stats.DegatInfligerMagique].GetValue() + 100)) / 100);
+                }
+                else
+                {
+                    this.degats = (int)((this.degats * (attaquant.listStat[(int)Stat.stats.DegatInfligerPhysique].GetValue() + 100)) / 100);
+                }
+                this.degats = (int)((this.degats * (attaquant.listStat[(int)Stat.stats.Degats].GetValue() + 100)) / 100);
+            }*/
         }
 
-        public void ReductionDegats(Perso attaquant, Perso defenseur,String type)
+
+        /// <summary>
+        /// réduit les dégats subit par la cible 
+        /// </summary>
+        /// <param name="attaquant"></param>
+        /// <param name="defenseur"></param>
+        public void ReductionDegats(Perso attaquant, Perso defenseur)
         {
             int res = 0;
-            if (type != "magique")
+            if(effet.id_stat_reduc != -1)
             {
-                foreach (Equipement equip in defenseur.listEquipement)
+                res = defenseur.listStat[effet.id_stat_reduc].GetValue();
+                if (effet.id_stat_reduc == (int)Stat.stats.resTotalphysique || effet.id_stat_reduc == (int)Stat.stats.Armure)
                 {
-                    res += equip.GetArmor();
+                    foreach (Equipement equip in defenseur.listEquipement)
+                    {
+                        res += equip.GetArmor();
+                    }
                 }
-                res += defenseur.listStat[(int)Stat.stats.E].GetValue() + defenseur.listStat[(int)Stat.stats.Armure].GetValue();
-                this.degats = (int)((this.degats * (defenseur.listStat[(int)Stat.stats.DegatSubitPhysique].GetValue()+100)) / 100);
-            }
-            else
-            {
-                foreach (Equipement equip in defenseur.listEquipement)
+                else if (effet.id_stat_reduc == (int)Stat.stats.resTotalMagique || effet.id_stat_reduc == (int)Stat.stats.RM)
                 {
-                    res += equip.GetRM();
+                    foreach (Equipement equip in defenseur.listEquipement)
+                    {
+                        res += equip.GetRM();
+                    }
                 }
-                res += defenseur.listStat[(int)Stat.stats.Fm].GetValue() + defenseur.listStat[(int)Stat.stats.RM].GetValue();
-                this.degats += (int)((this.degats * (defenseur.listStat[(int)Stat.stats.DegatInfligerMagique].GetValue() + 100)) / 100);
+                res = (res * (effet.coef_stat_reduc) / 100);
             }
-            
 
             degatSubit = GestionValeur.ReductionDegats(this.degats, res);
         }

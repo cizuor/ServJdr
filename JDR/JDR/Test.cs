@@ -254,7 +254,7 @@ namespace JDR
         private void btnAttaque1_Click(object sender, EventArgs e)
         {
 
-            List<ResultatAttaque> result = perso1.Attaque(perso2);
+            List<ResultatEffect> result = perso1.Attaque(perso2);
             Message(result);
             labelPV2.Text = perso2.PVActuelle.ToString();
             ActualiseIHM();
@@ -262,17 +262,17 @@ namespace JDR
 
         private void btnAttaque2_Click(object sender, EventArgs e)
         {
-            List<ResultatAttaque> result = perso2.Attaque(perso1);
+            List<ResultatEffect> result = perso2.Attaque(perso1);
             Message(result);
             labelPV1.Text = perso1.PVActuelle.ToString();
             ActualiseIHM();
         }
 
 
-        private void Message(List<ResultatAttaque> listResult)
+        private void Message(List<ResultatEffect> listResult)
         {
             String message = "";
-            foreach (ResultatAttaque result in listResult)
+            foreach (ResultatEffect result in listResult)
             {
                 if (result.erreur == null)
                 {

@@ -14,27 +14,29 @@ namespace JDR.Model.Action
         public int id;
         public String nom;
         public String definition;
-        public int id_nexteffet;
-        public int waitbeforenexteffet;
-        public int chance_nexteffet;
-        public int id_stat_resist_nexteffet;
-        public int chance_resist_nexteffet;
-        public int min_hit;
-        public int max_hit;
-        public int durer_min;
-        public int durer_max;
-        public int drain;
-        public int typedee;
-        public int nbdee;
-        public int basevaleur;
-        public int chance_crit;
-        public int bonus_crit;
-        public Boolean positif;
-        public int id_stat;
-        public int id_zoneeffect;
-        public int id_type;
-        public Boolean is_magique;
-        public Dictionary<int,int> ratio;
+        public int id_nexteffet; // id de l'effet suplémentaire
+        public int waitbeforenexteffet; // temps avant de lancer l'effect suplémentaire
+        public int chance_nexteffet; // chance de lancer un effect suplémentaire
+        public int id_stat_resist_nexteffet; // stat utilisé pour resisté a l 'effet 
+        public int chance_resist_nexteffet; // % de la stat de resistance utilisé
+        public int min_hit; // nombre min de foi ou l'effet se répéte
+        public int max_hit; // nombre max de foi ou l'effet se répéte
+        public int durer_min;  // duré de l'effet sur la cible min
+        public int durer_max; // duré de l'effet sur la cible max 
+        public int drain; // % de l'effet qui s'applique aussi a soi 
+        public int typedee; // type de dée lancer par l'effet
+        public int nbdee; // nombre de dée lancer par l'effet 
+        public int basevaleur; // valeur de base 
+        public int chance_crit; // chance de critique de l'effet
+        public int bonus_crit; // bonus de dégats critique
+        public Boolean positif; // si true alors la valuer est ajouter a la stat si false alors la valeur est retirer a la stat 
+        public int id_stat; // stat atteinte par l'effet
+        public int id_zoneeffect; // zonne d'effect
+        public int id_type; // type de dégats;
+        public Boolean is_magique; // si c'est magique ou physique  
+        public Dictionary<int,int> ratio; // liste des id stat / % des stat prise en compte par l'attaquand pour amélioré son effect 
+        public int id_stat_reduc; // stat prise en compte chez le déffenseur pour réduire l'effect
+        public int coef_stat_reduc; // le % de la stat prise en compte chez le déffenseur pour réduire l'effect
 
         public Effet(int id)
         {
@@ -65,6 +67,9 @@ namespace JDR.Model.Action
                 id_zoneeffect = Int32.Parse(drEffet[0]["id_zoneeffect"].ToString());
                 id_type = Int32.Parse(drEffet[0]["id_type"].ToString());
                 is_magique = Boolean.Parse(drEffet[0]["is_magique"].ToString());
+                id_stat_reduc = Int32.Parse(drEffet[0]["id_stat_reduction"].ToString());
+                coef_stat_reduc = Int32.Parse(drEffet[0]["coef_stat_reduction"].ToString());
+
 
                 DataTable tStatEffet = bdd.GetStatEffetByID(id);
                 DataRow[] drStatsEffet = tStatEffet.Select();

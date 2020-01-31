@@ -24,28 +24,31 @@ namespace JDR
         } 
 
 
-        public static void Attaque(float objectif , float objectifCrit , out int resultat , out int resultatCrit , out Boolean réussite , out Boolean critique)
+        public static void Attaque(float objectif , out int resultat, out Boolean réussite)
         {
             resultat = JetDée(100, 1);
-            resultatCrit = JetDée(100, 1);
             if(objectif > resultat)
             {
                 réussite = true;
-                if (objectifCrit > resultatCrit)
-                {
-                    critique = true;
-                }
-                else
-                {
-                    critique = false;
-                }
             }
             else
             {
                 réussite = false;
-                critique = false;
             }
         }
+
+        public static int minmax(int min, int max)
+        {
+            int taille = max - min;
+            taille++;
+
+            int retour = JetDée(taille,1);
+
+            retour --;
+            return retour;
+        }
+
+
 
         public static int Degats(Effet effet)
         {

@@ -364,6 +364,52 @@ namespace JDR.BDD
             }
             return conn.GetStatFrom("effet", id, out dicData["stateffet"].ds, out dicData["stateffet"].da);
         }
+
+
+
+
+        public DataTable GetComp()
+        {
+            if (!dicData.ContainsKey("comp"))
+            {
+                dicData.Add("comp", new DataConn());
+            }
+            return conn.GetTable("comp", out dicData["comp"].ds, out dicData["comp"].da);
+        }
+
+        public DataTable GetCompById(int id)
+        {
+            if (!dicData.ContainsKey("comp"))
+            {
+                dicData.Add("comp", new DataConn());
+            }
+            return conn.GetLigneFromTable("comp", id, out dicData["comp"].ds, out dicData["comp"].da);
+        }
+
+        public DataTable GetCompPersoByID(int id)
+        {
+            if (!dicData.ContainsKey("compperso"))
+            {
+                dicData.Add("compperso", new DataConn());
+            }
+            return conn.GetJointureFrom("perso", "comp", id, out dicData["compperso"].ds, out dicData["compperso"].da);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// renvoi ta datatable demander 
         /// </summary>
